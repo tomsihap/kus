@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/tournament")
@@ -16,12 +17,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class TournamentController extends AbstractController
 {
     /**
+     * @IsGranted("ROLE_USER")
      * @Route("/", name="tournament_index", methods={"GET"})
      */
     public function index(TournamentRepository $tournamentRepository): Response
     {
+
+        $usr = $this->getUser();
+        
+
         return $this->render('tournament/index.html.twig', [
-            'tournaments' => $tournamentRepository->findAll(),
+            'tournaments' => $usr->getTournament(),
         ]);
     }
 
@@ -30,8 +36,16 @@ class TournamentController extends AbstractController
      */
     public function new(Request $request): Response
     {
+
+        
         $tournament = new Tournament();
         $form = $this->createForm(TournamentType::class, $tournament);
+
+        //retieve the id of the current user
+        $actualUser = $this->getUser();
+        //set the organizer with the current user
+        $tournament->setOrganizer($actualUser);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

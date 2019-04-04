@@ -42,9 +42,15 @@ class User implements UserInterface
      */
     private $tournaments;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Tournament", mappedBy="organizer", orphanRemoval=true)
+     */
+    private $tournament;
+
     public function __construct()
     {
         $this->tournaments = new ArrayCollection();
+        $this->tournament = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -151,5 +157,13 @@ class User implements UserInterface
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Tournament[]
+     */
+    public function getTournament(): Collection
+    {
+        return $this->tournament;
     }
 }

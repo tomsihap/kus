@@ -3,6 +3,9 @@
 {% block title %}Tournament index{% endblock %}
 
 {% block body %}
+
+{% if is_granted('ROLE_USER') %}
+
     <h1>Tournament index</h1>
 
     <table class="table">
@@ -15,6 +18,7 @@
         </thead>
         <tbody>
         {% for tournament in tournaments %}
+            
             <tr>
                 <td>{{ tournament.id }}</td>
                 <td>{{ tournament.name }}</td>
@@ -27,9 +31,13 @@
             <tr>
                 <td colspan="3">no records found</td>
             </tr>
+            
         {% endfor %}
         </tbody>
     </table>
+    
+    
+{% endif %}
 
     <a href="{{ path('tournament_new') }}">Create new</a>
 {% endblock %}

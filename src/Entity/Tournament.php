@@ -36,13 +36,19 @@ class Tournament
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="tournaments")
      */
-    private $Users;
+    private $users;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="tournament")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $organizer;
 
     public function __construct()
     {
         $this->games = new ArrayCollection();
         $this->teams = new ArrayCollection();
-        $this->Users = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -129,13 +135,13 @@ class Tournament
      */
     public function getUsers(): Collection
     {
-        return $this->Users;
+        return $this->users;
     }
 
     public function addUser(User $user): self
     {
-        if (!$this->Users->contains($user)) {
-            $this->Users[] = $user;
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
         }
 
         return $this;
@@ -143,9 +149,21 @@ class Tournament
 
     public function removeUser(User $user): self
     {
-        if ($this->Users->contains($user)) {
-            $this->Users->removeElement($user);
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
         }
+
+        return $this;
+    }
+
+    public function getOrganizer(): ?User
+    {
+        return $this->organizer;
+    }
+
+    public function setOrganizer(?User $organizer): self
+    {
+        $this->organizer = $organizer;
 
         return $this;
     }
