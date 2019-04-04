@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -35,6 +37,21 @@ class Player
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $profilPic;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Team", inversedBy="players")
+     */
+    private $team;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Contest", mappedBy="player", orphanRemoval=true)
+     */
+    private $contests;
+
+    public function __construct()
+    {
+        $this->contests = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -85,6 +102,49 @@ class Player
     public function setProfilPic(?string $profilPic): self
     {
         $this->profil_pic = $profilPic;
+
+        return $this;
+    }
+
+    public function getTeam(): ?Team
+    {
+        return $this->team;
+    }
+
+    public function setTeam(?Team $team): self
+    {
+        $this->team = $team;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Contest[]
+     */
+    public function getContests(): Collection
+    {
+        return $this->contests;
+    }
+
+    public function addContest(Contest $contest): self
+    {
+        if (!$this->contests->contains($contest)) {
+            $this->contests[] = $contest;
+            $contest->setPlayer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContest(Contest $contest): self
+    {
+        if ($this->contests->contains($contest)) {
+            $this->contests->removeElement($contest);
+            // set the owning side to null (unless already changed)
+            if ($contest->getPlayer() === $this) {
+                $contest->setPlayer(null);
+            }
+        }
 
         return $this;
     }

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,6 +27,22 @@ class Game
      * @ORM\Column(type="integer")
      */
     private $victoryValue;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Contest", mappedBy="game", orphanRemoval=true)
+     */
+    private $contests;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Tournament", inversedBy="games")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $tournament;
+
+    public function __construct()
+    {
+        $this->contests = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -51,6 +69,49 @@ class Game
     public function setVictoryValue(int $victoryValue): self
     {
         $this->victoryValue = $victoryValue;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Contest[]
+     */
+    public function getContests(): Collection
+    {
+        return $this->contests;
+    }
+
+    public function addContest(Contest $contest): self
+    {
+        if (!$this->contests->contains($contest)) {
+            $this->contests[] = $contest;
+            $contest->setGame($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContest(Contest $contest): self
+    {
+        if ($this->contests->contains($contest)) {
+            $this->contests->removeElement($contest);
+            // set the owning side to null (unless already changed)
+            if ($contest->getGame() === $this) {
+                $contest->setGame(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getTournament(): ?Tournament
+    {
+        return $this->tournament;
+    }
+
+    public function setTournament(?Tournament $tournament): self
+    {
+        $this->tournament = $tournament;
 
         return $this;
     }
