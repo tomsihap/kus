@@ -24,8 +24,7 @@ class TournamentController extends AbstractController
     {
 
         $usr = $this->getUser();
-        
-
+    
         return $this->render('tournament/index.html.twig', [
             'tournaments' => $usr->getTournament(),
         ]);
@@ -67,9 +66,24 @@ class TournamentController extends AbstractController
      */
     public function show(Tournament $tournament): Response
     {
+        $usr = $this->getUser();
+        $usrId = $this->getUser()->getId();
+        $organizerId = $tournament->getOrganizer()->getId();
+
+
+        if ($usrId == $organizerId){
         return $this->render('tournament/show.html.twig', [
             'tournament' => $tournament,
         ]);
+        }
+
+        else {
+
+            return $this->render('tournament/index.html.twig', [
+                'tournaments' => $usr->getTournament(),
+            ]);
+
+        }
     }
 
     /**
