@@ -3,13 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Tournament;
+use App\Entity\Team;
 use App\Form\TournamentType;
+use App\Form\TeamType;
 use App\Repository\TournamentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Doctrine\Common\Persistence\ObjectManager;
 
 /**
  * @Route("/tournament")
@@ -62,23 +65,39 @@ class TournamentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="tournament_show", methods={"GET"})
+     * @Route("/{id}", name="tournament_show", methods={"GET", "POST"})
      */
-    public function show(Tournament $tournament): Response
+    public function show(Tournament $tournament, Request $request, ObjectManager $manager): Response
     {
         $usr = $this->getUser();
         $usrId = $this->getUser()->getId();
         $organizerId = $tournament->getOrganizer()->getId();
 
-
         if ($usrId == $organizerId){
+
+            $team = new Team();
+            $form = $this->createForm(TeamType::class, $team);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isvalid()) {
+
+                $team->setTournament($tournament);
+
+                $manager->persist($team);
+                $manager->flush();
+
+                return $this->redirectToRoute('tournament_show', [
+                    'id' => $tournament->getId()
+                ]);
+            }
+
         return $this->render('tournament/show.html.twig', [
             'tournament' => $tournament,
+            'teamForm'   => $form->createView()
         ]);
         }
 
         else {
-
             return $this->render('tournament/index.html.twig', [
                 'tournaments' => $usr->getTournament(),
             ]);
