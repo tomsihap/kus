@@ -111,7 +111,9 @@ class TournamentController extends AbstractController
             $playerForm->handleRequest($request);
 
             if($playerForm->isSubmitted() && $playerForm->isValid()) {
-                
+
+                $player->setTournament($tournament);
+
                 $manager->persist($player);
                 $manager->flush();
 

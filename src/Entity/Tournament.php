@@ -49,12 +49,18 @@ class Tournament
      */
     private $contests;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Player", mappedBy="tournament", orphanRemoval=true)
+     */
+    private $players;
+
     public function __construct()
     {
         $this->games = new ArrayCollection();
         $this->teams = new ArrayCollection();
         $this->users = new ArrayCollection();
         $this->contests = new ArrayCollection();
+        $this->players = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -199,6 +205,37 @@ class Tournament
             // set the owning side to null (unless already changed)
             if ($contest->getTournament() === $this) {
                 $contest->setTournament(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Player[]
+     */
+    public function getPlayers(): Collection
+    {
+        return $this->players;
+    }
+
+    public function addPlayer(Player $player): self
+    {
+        if (!$this->players->contains($player)) {
+            $this->players[] = $player;
+            $player->setTournament($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlayer(Player $player): self
+    {
+        if ($this->players->contains($player)) {
+            $this->players->removeElement($player);
+            // set the owning side to null (unless already changed)
+            if ($player->getTournament() === $this) {
+                $player->setTournament(null);
             }
         }
 

@@ -5,7 +5,7 @@
 {% block body %}
     <h1>{{ tournament.name }}</h1>
 
-    <h2>{{ tournament.teams | length }} Equipe(s) en jeu</h2>
+    <h3>{{ tournament.teams | length }} Equipe(s) en jeu</h3>
  
     
         <table class="table">
@@ -44,6 +44,9 @@
     {{ form_end(teamForm) }}
 
     <br>
+    <h3>{{ tournament.players | length }} Joueur(s) en jeu</h3>
+    
+    <br>
      <table class="table">
          <tr>
              <th>Name</th>
@@ -79,6 +82,8 @@
 
 
     <br>
+    <h3>{{ tournament.games | length }} Jeu(x)</h3>
+    <br>
      <table class="table">
 
          <tr>
@@ -109,6 +114,7 @@
 
 
     <br>
+    <h3>{{ tournament.contests | length }} Match(s) joué(s)</h3>
     <br>
     <table class="table">
 
