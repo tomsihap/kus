@@ -22,15 +22,14 @@
                         </path>
                         <circle cx="12" cy="13" r="4"></circle>
                     </svg>
-                    <strong>ScoreKeeper <?php if (isset($_SESSION['id']) AND isset($_SESSION['pseudo']))
-                                { echo ' | Bonjour ' . $_SESSION['pseudo']; }?></strong>
+                    <strong>ScoreKeeper</strong>
                 </a>
                 <div>
-                    <a href="#"
+                    <a href="{{ path('app_login') }}"
                         class="btn btn-success <?php if($_SESSION['is_logged_in'] == true) { ?> d-none <?php } ?>">Connexion</a>
                     <a href="{{ path('logout') }}"
                         class="btn btn-danger d-none <?php if($_SESSION['is_logged_in']) { ?> d-inline <?php } ?>">Deconnexion</a>
-                    <a href="signin"
+                    <a href="{{ path('app_register') }}"
                         class="btn btn-warning <?php if($_SESSION['is_logged_in'] == true) { ?>d-none <?php } ?>">S'inscrire</a>
                 </div>
             </div>

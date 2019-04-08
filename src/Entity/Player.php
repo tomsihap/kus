@@ -51,6 +51,8 @@ class Player
     public function __construct()
     {
         $this->contests = new ArrayCollection();
+        $this->setVictories(0);
+        $this->setScore(0);
     }
 
     public function getId(): ?int

@@ -14,6 +14,7 @@
                     <th>Name</th>
                     <th>Score</th>
                     <th>Victories</th>
+                    <th>Players</th>
                     <th>Show</th>
                     <th>Edit</th>
                 </tr>
@@ -21,6 +22,10 @@
                     <td>{{ team.name }}</td>
                     <td>{{ team.score }}</td>
                     <td>{{ team.victories }}</td>
+                    <td>{% for player in team.players %}
+                        {{ player.pseudo }}
+                        {% endfor %}
+                    </td>
                     <td><a href="{{ path('team_show', {'id': team.id}) }}">show</a></td>
                     <td><a href="{{ path('team_edit', {'id': team.id}) }}">edit</a></td>
                     
@@ -29,10 +34,28 @@
         </table>
     {% endfor %}
 
+  
+    <h3>Ajouter une équipe : </h3>
     {{ form_start(teamForm) }}
     {{ form_row(teamForm.name) }}
     <button type="submit" class="btn btn-success">Créer</button>
     {{ form_end(teamForm) }}
+
+    <h3>Ajouter un joueur : </h3>
+    {{ form_start(playerForm) }}
+    {{ form_row(playerForm.pseudo) }}
+    {{ form_row(playerForm.team) }}
+    <!-- {{ form_row(playerForm.profilPic) }} -->
+    <button type="submit" class="btn btn-success">Créer</button>
+    {{ form_end(playerForm) }}
+
+
+    <h3>Ajouter un jeu : </h3>
+    {{ form_start(gameForm) }}
+    {{ form_row(gameForm.name) }}
+    {{ form_row(gameForm.victoryValue) }}
+    <button type="submit" class="btn btn-success">Créer</button>
+    {{ form_end(gameForm) }}
 
 
     <a href="{{ path('tournament_index') }}">back to list</a>
