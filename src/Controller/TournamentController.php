@@ -112,6 +112,28 @@ class TournamentController extends AbstractController
 
             if($playerForm->isSubmitted() && $playerForm->isValid()) {
 
+                /**********************************************************************/
+
+                //retrive the file send in the request
+                $file = $request->files->get('player')['profilPic'];
+
+                //put the path to the folder that will stock our files in a var
+                $uploads_player_directory = $this->getParameter('uploads_player_directory');
+
+                //create a var to change the name of the file
+                $filename = md5(uniqid()) . '.' . $file->guessExtension();
+
+                //move the file into the folder
+                $file->move(
+                    $uploads_player_directory,
+                    $filename
+                );
+
+                //set the event photo's attribut
+                $post = $player->setProfilPic($filename);
+
+                /**********************************************************************/ 
+
                 $player->setTournament($tournament);
 
                 $manager->persist($player);
