@@ -122,6 +122,43 @@ class ContestController extends AbstractController
     public function delete(Request $request, Contest $contest): Response
     {
         if ($this->isCsrfTokenValid('delete'.$contest->getId(), $request->request->get('_token'))) {
+
+            $playerEntity = $contest->getPlayer();
+            $gameEntity = $contest->getGame();
+
+            //Getting player(s)'s score and victories before the contest
+            $initialPlayerScore = $playerEntity->getScore();
+            $initialPlayerVictories = $playerEntity->getVictories();
+
+            //Getting player's team score and victories before the contest
+            $selectedTeam = $playerEntity->getTeam();
+            $initalTeamScore = $selectedTeam->getScore();
+            $initialTeamVictories = $selectedTeam->getVictories();
+
+            //Getting the points value of the game played
+            $selectedScore = $gameEntity->getVictoryValue();
+
+
+            //Update player's score
+            $updatedPlayerScore = $initialPlayerScore - $selectedScore;
+            $playerEntity->setScore($updatedPlayerScore);
+
+            //Update player's victories    
+            $updatedPlayerVictories =  $initialPlayerVictories - 1;
+            $playerEntity->setVictories($updatedPlayerVictories);
+
+            //Update player's team's score
+            $updatedTeamScore = $initalTeamScore - $selectedScore;
+            $selectedTeam->setScore($updatedTeamScore);
+
+            //Update player's team's victories    
+            $updatedTeamVictories =  $initialTeamVictories - 1;
+            $selectedTeam->setVictories($updatedTeamVictories);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($contest);
+            $entityManager->flush();
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($contest);
             $entityManager->flush();
