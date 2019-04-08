@@ -44,11 +44,17 @@ class Tournament
      */
     private $organizer;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Contest", mappedBy="tournament")
+     */
+    private $contests;
+
     public function __construct()
     {
         $this->games = new ArrayCollection();
         $this->teams = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->contests = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -164,6 +170,37 @@ class Tournament
     public function setOrganizer(?User $organizer): self
     {
         $this->organizer = $organizer;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Contest[]
+     */
+    public function getContests(): Collection
+    {
+        return $this->contests;
+    }
+
+    public function addContest(Contest $contest): self
+    {
+        if (!$this->contests->contains($contest)) {
+            $this->contests[] = $contest;
+            $contest->setTournament($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContest(Contest $contest): self
+    {
+        if ($this->contests->contains($contest)) {
+            $this->contests->removeElement($contest);
+            // set the owning side to null (unless already changed)
+            if ($contest->getTournament() === $this) {
+                $contest->setTournament(null);
+            }
+        }
 
         return $this;
     }

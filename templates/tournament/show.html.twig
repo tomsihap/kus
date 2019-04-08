@@ -15,8 +15,8 @@
                     <th>Score</th>
                     <th>Victories</th>
                     <th>Players</th>
-                    <th>Show</th>
-                    <th>Edit</th>
+                    <th>Options</th>
+
                 </tr>
         {% for team in tournament.teams %}
                 <tr>
@@ -27,9 +27,10 @@
                         {{ player.pseudo }}
                         {% endfor %}
                     </td>
-                    <td><a href="{{ path('team_show', {'id': team.id}) }}">show</a></td>
-                    <td><a href="{{ path('team_edit', {'id': team.id}) }}">edit</a></td>
-                    
+                    <td>
+                    <a  class="btn btn-success" href="{{ path('team_show',   {'id': team.id}) }}">show</a>
+                    <a  class="btn btn-info" href="{{ path('team_edit',       {'id': team.id}) }}">edit</a>
+                    <a  class="btn btn-warning" href="{{ path('team_delete',     {'id': team.id}) }}">delete</a></td>
                 </tr>
             {% endfor %}
         </table>
@@ -42,6 +43,32 @@
     <button type="submit" class="btn btn-success">Créer</button>
     {{ form_end(teamForm) }}
 
+    <br>
+     <table class="table">
+         <tr>
+             <th>Name</th>
+             <th>Score</th>
+             <th>Victories</th>
+             <th>Team</th>
+             <th>Options</th>
+
+         </tr>
+         {% for team in tournament.teams %}
+         {% for player in team.players %}
+         <tr>
+             <td>{{ player.pseudo }}</td>
+             <td>{{ player.score }}</td>
+             <td>{{ player.victories }}</td>
+             <td>{{ player.team.name }}</td>
+             <td>
+                 <a class="btn btn-success" href="{{ path('player_show',   {'id': player.id}) }}">show</a>
+                 <a class="btn btn-info" href="{{ path('player_edit',       {'id': player.id}) }}">edit</a>
+                 <a class="btn btn-warning" href="{{ path('player_delete',     {'id': player.id}) }}">delete</a></td>
+         </tr>
+         {% endfor %}
+         {% endfor %}
+     </table>
+
     <h4>Ajouter un joueur : </h3>
     {{ form_start(playerForm) }}
     {{ form_row(playerForm.pseudo) }}
@@ -51,12 +78,61 @@
     {{ form_end(playerForm) }}
 
 
+    <br>
+     <table class="table">
+
+         <tr>
+             <th>Name</th>
+             <th>Value</th>
+             <th>Options</th>
+
+         </tr>
+         {% for game in tournament.games %}
+         <tr>
+             <td>{{ game.name }}</td>
+             <td>{{ game.victoryValue }}</td>
+             <td>
+                 <a class="btn btn-success" href="{{ path('game_show',   {'id': game.id}) }}">show</a>
+                 <a class="btn btn-info" href="{{ path('game_edit',       {'id': game.id}) }}">edit</a>
+                 <a class="btn btn-warning" href="{{ path('game_delete',     {'id': game.id}) }}">delete</a></td>
+         </tr>
+         {% endfor %}
+     </table>
+
+
     <h4>Ajouter un jeu : </h3>
     {{ form_start(gameForm) }}
     {{ form_row(gameForm.name) }}
     {{ form_row(gameForm.victoryValue) }}
     <button type="submit" class="btn btn-success">Créer</button>
     {{ form_end(gameForm) }}
+
+
+    <br>
+    <br>
+    <table class="table">
+
+        <tr>
+            <th>Date</th>
+            <th>Winner</th>
+            <th>Game</th>
+            <th>Points</th>
+            <th>Options</th>
+
+        </tr>
+        {% for contest in tournament.contests %}
+        <tr>
+            <td>{{ contest.createdAt | date('Y-m-d H:i:s') }}</td>
+            <td>{{ contest.player.pseudo}}</td>
+            <td>{{ contest.game.name }}</td>
+            <td>{{ contest.game.victoryValue }}</td>
+            <td>
+                <a class="btn btn-success" href="{{ path('contest_show',   {'id': contest.id}) }}">show</a>
+                <a class="btn btn-info" href="{{ path('contest_edit',       {'id': contest.id}) }}">edit</a>
+                <a class="btn btn-warning" href="{{ path('contest_delete',     {'id': contest.id}) }}">delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
 
     <h4>Ajouter un Match : </h3>
     {{ form_start(contestForm) }}

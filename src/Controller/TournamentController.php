@@ -144,6 +144,8 @@ class TournamentController extends AbstractController
 
             if ($contestForm->isSubmitted() && $contestForm->isValid()) {
 
+                $contest->setTournament($tournament);
+
                 $playerEntity = $contestForm->get('player')->getData();
                 $gameEntity = $contestForm->get('game')->getData();
 

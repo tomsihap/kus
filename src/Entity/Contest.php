@@ -33,6 +33,12 @@ class Contest
      */
     private $game;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Tournament", inversedBy="contests")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $tournament;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -76,6 +82,18 @@ class Contest
     public function setGame(?Game $game): self
     {
         $this->game = $game;
+
+        return $this;
+    }
+
+    public function getTournament(): ?Tournament
+    {
+        return $this->tournament;
+    }
+
+    public function setTournament(?Tournament $tournament): self
+    {
+        $this->tournament = $tournament;
 
         return $this;
     }
