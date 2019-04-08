@@ -57,6 +57,14 @@
     <button type="submit" class="btn btn-success">Créer</button>
     {{ form_end(gameForm) }}
 
+    <h3>Ajouter un Match : </h3>
+    {{ form_start(contestForm) }}
+    {{ form_row(contestForm.player) }}
+    {{ form_row(contestForm.game) }}
+    <!-- {{ form_row(playerForm.profilPic) }} -->
+    <button type="submit" class="btn btn-success">Créer</button>
+    {{ form_end(contestForm) }}
+
 
     <a href="{{ path('tournament_index') }}">back to list</a>
 

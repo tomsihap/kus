@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Contest;
+use App\Entity\Player;
+use App\Entity\Game;
 use App\Form\ContestType;
 use App\Repository\ContestRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,8 +35,42 @@ class ContestController extends AbstractController
         $contest = new Contest();
         $form = $this->createForm(ContestType::class, $contest);
         $form->handleRequest($request);
+ 
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $playerEntity = $form->get('player')->getData();
+            $gameEntity = $form->get('game')->getData();
+
+            //Getting player(s)'s score and victories before the contest
+            $initialPlayerScore = $playerEntity->getScore();
+            $initialPlayerVictories = $playerEntity->getVictories();
+
+            //Getting player's team score and victories before the contest
+            $selectedTeam = $playerEntity->getTeam();
+            $initalTeamScore = $selectedTeam->getScore();
+            $initialTeamVictories = $selectedTeam->getVictories();
+
+            //Getting the points value of the game played
+            $selectedScore = $gameEntity->getVictoryValue();
+
+
+            //Update player's score
+            $updatedPlayerScore = $initialPlayerScore+$selectedScore;
+            $playerEntity->setScore($updatedPlayerScore);
+
+            //Update player's victories    
+            $updatedPlayerVictories =  $initialPlayerVictories+1;
+            $playerEntity->setVictories($updatedPlayerVictories);
+            
+            //Update player's team's score
+            $updatedTeamScore = $initalTeamScore+$selectedScore;
+            $selectedTeam->setScore($updatedTeamScore);
+
+            //Update player's team's victories    
+            $updatedTeamVictories =  $initialTeamVictories+1;  
+            $selectedTeam->setVictories($updatedTeamVictories);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($contest);
             $entityManager->flush();

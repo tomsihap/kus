@@ -6,10 +6,12 @@ use App\Entity\Tournament;
 use App\Entity\Team;
 use App\Entity\Player;
 use App\Entity\Game;
+use App\Entity\Contest;
 use App\Form\TournamentType;
 use App\Form\TeamType;
 use App\Form\PlayerType;
 use App\Form\GameType;
+use App\Form\ContestType;
 use App\Repository\TournamentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,6 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Doctrine\Common\Persistence\ObjectManager;
+
 
 /**
  * @Route("/tournament")
@@ -75,12 +78,16 @@ class TournamentController extends AbstractController
      */
     public function show(Tournament $tournament, Request $request, ObjectManager $manager): Response
     {
+
+        // get the actual user to make sure the user only see his tournaments
+
         $usr = $this->getUser();
         $usrId = $this->getUser()->getId();
         $organizerId = $tournament->getOrganizer()->getId();
 
         if ($usrId == $organizerId){
 
+            //Add team's form    
             $team = new Team();
             $teamForm = $this->createForm(TeamType::class, $team);
             $teamForm->handleRequest($request);
@@ -98,6 +105,7 @@ class TournamentController extends AbstractController
                 ]);
             }
 
+            //Add player's form 
             $player = new Player();
             $playerForm = $this->createForm(PlayerType::class, $player);
             $playerForm->handleRequest($request);
@@ -112,6 +120,7 @@ class TournamentController extends AbstractController
                 ]);
             }
 
+            //Add game's form 
             $game = new Game();
             $gameForm = $this->createForm(GameType::class, $game);
             $gameForm->handleRequest($request);
@@ -128,12 +137,64 @@ class TournamentController extends AbstractController
                 ]);
             }
 
+            //Add contest's form 
+            $contest = new Contest();
+            $contestForm = $this->createForm(ContestType::class, $contest);
+            $contestForm->handleRequest($request);
+
+            if ($contestForm->isSubmitted() && $contestForm->isValid()) {
+
+                $playerEntity = $contestForm->get('player')->getData();
+                $gameEntity = $contestForm->get('game')->getData();
+
+                //Getting player(s)'s score and victories before the contest
+                $initialPlayerScore = $playerEntity->getScore();
+                $initialPlayerVictories = $playerEntity->getVictories();
+
+                //Getting player's team score and victories before the contest
+                $selectedTeam = $playerEntity->getTeam();
+                $initalTeamScore = $selectedTeam->getScore();
+                $initialTeamVictories = $selectedTeam->getVictories();
+
+                //Getting the points value of the game played
+                $selectedScore = $gameEntity->getVictoryValue();
+
+
+                //Update player's score
+                $updatedPlayerScore = $initialPlayerScore + $selectedScore;
+                $playerEntity->setScore($updatedPlayerScore);
+
+                //Update player's victories    
+                $updatedPlayerVictories =  $initialPlayerVictories + 1;
+                $playerEntity->setVictories($updatedPlayerVictories);
+
+                //Update player's team's score
+                $updatedTeamScore = $initalTeamScore + $selectedScore;
+                $selectedTeam->setScore($updatedTeamScore);
+
+                //Update player's team's victories    
+                $updatedTeamVictories =  $initialTeamVictories + 1;
+                $selectedTeam->setVictories($updatedTeamVictories);
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($contest);
+                $entityManager->flush();
+
+                $manager->persist($contest);
+                $manager->flush();
+
+                return $this->redirectToRoute('tournament_show', [
+                    'id' => $tournament->getId()
+                ]);
+            }
+
 
         return $this->render('tournament/show.html.twig', [
-            'tournament' => $tournament,
-            'teamForm'   => $teamForm->createView(),
-            'playerForm' => $playerForm->createView(),
-            'gameForm'   => $gameForm->createView()
+            'tournament'   => $tournament,
+            'teamForm'     => $teamForm->createView(),
+            'playerForm'   => $playerForm->createView(),
+            'gameForm'     => $gameForm->createView(),
+            'contestForm'  => $contestForm->createView()
         ]);
         }
 
