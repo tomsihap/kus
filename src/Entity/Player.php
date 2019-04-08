@@ -109,7 +109,7 @@ class Player
 
     public function setProfilPic(?string $profilPic): self
     {
-        $this->profil_pic = $profilPic;
+        $this->profilPic = $profilPic;
 
         return $this;
     }

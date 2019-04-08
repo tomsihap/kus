@@ -121,7 +121,7 @@ class TournamentController extends AbstractController
                 $uploads_player_directory = $this->getParameter('uploads_player_directory');
 
                 //create a var to change the name of the file
-                $filename = md5(uniqid()) . '.' . $file->guessExtension();
+                $filename = 'player' . md5(uniqid()) . '.' . $file->guessExtension();
 
                 //move the file into the folder
                 $file->move(
@@ -130,7 +130,7 @@ class TournamentController extends AbstractController
                 );
 
                 //set the event photo's attribut
-                $post = $player->setProfilPic($filename);
+                $player->setProfilPic($filename);
 
                 /**********************************************************************/ 
 

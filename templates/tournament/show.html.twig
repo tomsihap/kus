@@ -49,6 +49,7 @@
     <br>
      <table class="table">
          <tr>
+             <th>Image</th>
              <th>Name</th>
              <th>Score</th>
              <th>Victories</th>
@@ -59,6 +60,7 @@
          {% for team in tournament.teams %}
          {% for player in team.players %}
          <tr>
+             <td><img src="{{ asset('dist/images/player/' ~ player.getProfilPic()) }}"></td>
              <td>{{ player.pseudo }}</td>
              <td>{{ player.score }}</td>
              <td>{{ player.victories }}</td>
