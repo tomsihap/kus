@@ -159,7 +159,6 @@ class TournamentController extends AbstractController
                 //Getting the points value of the game played
                 $selectedScore = $gameEntity->getVictoryValue();
 
-
                 //Update player's score
                 $updatedPlayerScore = $initialPlayerScore + $selectedScore;
                 $playerEntity->setScore($updatedPlayerScore);

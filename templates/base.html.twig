@@ -25,12 +25,14 @@
                     <strong>ScoreKeeper</strong>
                 </a>
                 <div>
+                    {% if app.user %}
+                     <a href="{{ path('logout') }}" class="btn btn-danger">Deconnexion</a>
+                    {% else %}
                     <a href="{{ path('app_login') }}"
-                        class="btn btn-success <?php if($_SESSION['is_logged_in'] == true) { ?> d-none <?php } ?>">Connexion</a>
-                    <a href="{{ path('logout') }}"
-                        class="btn btn-danger d-none <?php if($_SESSION['is_logged_in']) { ?> d-inline <?php } ?>">Deconnexion</a>
+                        class="btn btn-success">Connexion</a>
                     <a href="{{ path('app_register') }}"
-                        class="btn btn-warning <?php if($_SESSION['is_logged_in'] == true) { ?>d-none <?php } ?>">S'inscrire</a>
+                        class="btn btn-warning">S'inscrire</a>
+                    {% endif %}    
                 </div>
             </div>
         </div>
