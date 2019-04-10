@@ -6,6 +6,7 @@
 parameters:
     locale: 'en'
     uploads_player_directory: '%kernel.project_dir%/public/dist/images/player'
+    uploads_team_directory: '%kernel.project_dir%/public/dist/images/team'
 
 services:
     # default configuration for services in *this* file

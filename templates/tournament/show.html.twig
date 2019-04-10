@@ -11,6 +11,7 @@
         <table class="table">
             
                 <tr>
+                    <th>Image</th>
                     <th>Name</th>
                     <th>Score</th>
                     <th>Victories</th>
@@ -20,6 +21,7 @@
                 </tr>
         {% for team in tournament.teams %}
                 <tr>
+                    <td><img src="{{ asset('dist/images/team/' ~ team.getPhoto()) }}"></td>
                     <td>{{ team.name }}</td>
                     <td>{{ team.score }}</td>
                     <td>{{ team.victories }}</td>
@@ -40,6 +42,7 @@
     <h4>Ajouter une équipe : </h3>
     {{ form_start(teamForm) }}
     {{ form_row(teamForm.name) }}
+    {{ form_row(teamForm.photo) }}
     <button type="submit" class="btn btn-success">Créer</button>
     {{ form_end(teamForm) }}
 
