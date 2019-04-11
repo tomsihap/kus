@@ -6,33 +6,28 @@
         {% block stylesheets %}
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
             integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-        <link href="./public/bootstrap.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+            integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
         <link href="{{ asset('dist/css/normalize.css') }}" rel="stylesheet">
         <link href="{{ asset('dist/css/style.css') }}" rel="stylesheet">
         {% endblock %}
     </head>
 <body>
     <header class="container-fluid">
-        <div class="navbar navbar-dark bg-dark shadow-sm">
-            <div class="container d-flex justify-content-between">
+        <div class="navbar row">
+            <div class="container-fluid">
                 <a href="/" class="navbar-brand d-flex align-items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="mr-2" focusable="false" aria-hidden="true">
-                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z">
-                        </path>
-                        <circle cx="12" cy="13" r="4"></circle>
-                    </svg>
-                    <strong>ScoreKeeper</strong>
+                    <strong><i class="fas fa-pencil-ruler"></i> Scoreo</strong>
                 </a>
                 <div>
+                    <i class="fas fa-bars"></i>
                     {% if app.user %}
-                     <a href="{{ path('logout') }}" class="btn btn-danger">Deconnexion</a>
+                     <a href="{{ path('logout') }}" class="log-btn">Deconnexion</a>
                     {% else %}
                     <a href="{{ path('app_login') }}"
-                        class="btn btn-success">Connexion</a>
+                        class="log-btn">Connexion</a>
                     <a href="{{ path('app_register') }}"
-                        class="btn btn-warning">S'inscrire</a>
+                        class="log-btn">S'inscrire</a>
                     {% endif %}    
                 </div>
             </div>

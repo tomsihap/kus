@@ -1,0 +1,16 @@
+/* NAVBAR */
+.navbar {
+  background-color: #4F7D63; }
+  .navbar a {
+    color: white; }
+  .navbar .navbar-brand {
+    font-size: 1.5em;
+    padding-left: 3em; }
+  .navbar .log-btn {
+    margin: 0em 0.7em;
+    font-weight: bold;
+    font-size: 1.5em; }
+  .navbar .fa-bars {
+    font-size: 1.5em;
+    color: white;
+    display: none; }

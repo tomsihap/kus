@@ -1,0 +1,17 @@
+/* BODY */
+
+body {
+    background-color: $background;
+
+    #welcome-title {
+        color: $main-color;
+        font-weight: bold;
+        font-size: 3em;
+        padding-top: 2em;
+    }
+
+    #p-intro {
+        color: $main-color;
+        font-size: 2em;
+    }
+}

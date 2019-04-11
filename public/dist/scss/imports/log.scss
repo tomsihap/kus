@@ -1,0 +1,52 @@
+
+
+#log-title {
+    color: $main-color;
+    font-weight: bold;
+    font-size: 2em;
+    padding-top: 2em;
+}
+
+p {
+    color: $main-color;
+    margin: 0px;
+}
+
+
+.form-control {
+    border-radius: 0em;
+}
+
+input {
+    margin-bottom: 2em; 
+}
+
+.form-log-btn {
+    background-color: $main-color;
+    color: white;
+    padding: 1em 2em;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+form {
+
+    span {
+        text-align: center;
+    }
+
+    #register-link {
+        padding-top: 1em;
+        text-align: center;
+    }
+    a {
+        color: $main-color;
+       
+    }
+}
+
+.form-input {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
