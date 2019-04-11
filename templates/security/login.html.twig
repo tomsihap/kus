@@ -4,7 +4,7 @@
 
 {% block body %}
 <div class="container">
-    <h1 id="log-title">Connexion</h1>
+   
 
 
 
@@ -13,9 +13,10 @@
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
 
-        
+         
         
             <div class="form-input">
+                <h1 id="log-title">Connexion</h1>
                 <p>email</p>
             <label for="inputEmail" class="sr-only">Email</label>
             <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required
@@ -29,7 +30,7 @@
 
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-        <div class="form-input">
+        <div class="form-btn">
 
         <button class="form-log-btn btn" type="submit">
             Sign in
