@@ -1,43 +1,46 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Tournament index{% endblock %}
-
 {% block body %}
-
 {% if is_granted('ROLE_USER') %}
+<div class="container">
+<div id="tournament-head">
+<h1 id="tournament-board-title">Your tournaments</h1>
+<a class="btn btn-success create-btn " href="{{ path('tournament_new') }}">+ Create new</a>
+</div>
 
-    <h1>Tournament index</h1>
-
+{% for tournament in tournaments %}
+<div id="tournament-board">
+            
     <table class="table">
+        <h3 id="tournament-name">{{ tournament.name }}</h3>
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>actions</th>
+                <th>Teams</th>
+                <th>Players</th>
+                <th>Contests</th>
+                <th>Games</th>
+                <th>Options</th>
             </tr>
         </thead>
         <tbody>
-        {% for tournament in tournaments %}
-            
             <tr>
-                <td>{{ tournament.id }}</td>
-                <td>{{ tournament.name }}</td>
+                <td>{{ tournament.teams | length }}</td>
+                <td>{{ tournament.players | length }}</td>
+                <td>{{ tournament.contests | length }}</td>
+                <td>{{ tournament.games | length }}</td>
                 <td>
-                    <a href="{{ path('tournament_show', {'id': tournament.id}) }}">show</a>
-                    <a href="{{ path('tournament_edit', {'id': tournament.id}) }}">edit</a>
+                    <a class="btn btn-success " href="{{ path('tournament_show', {'id': tournament.id}) }}">Getin</a>
+                    <a class="btn btn-danger " href="{{ path('tournament_delete', {'id': tournament.id}) }}">Delete</a>
                 </td>
             </tr>
-        {% else %}
+            {% else %}
             <tr>
                 <td colspan="3">no records found</td>
             </tr>
-            
-        {% endfor %}
         </tbody>
     </table>
-    
-    
-{% endif %}
-
-    <a href="{{ path('tournament_new') }}">Create new</a>
+    {% endfor %}
+    </div>
+    {% endif %}
+</div>
 {% endblock %}

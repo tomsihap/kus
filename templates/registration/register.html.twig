@@ -25,6 +25,10 @@
             {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
             {{ form_row(registrationForm.plainPassword) }}
         </div>
+        <div class="form-input">
+            <label for="confirmPasswordInput">confirm password</label>
+            <input type="password" class="form-control" id="confirmPasswordInput" required>
+        </div>
 
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 

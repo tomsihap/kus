@@ -1,0 +1,54 @@
+#tournament-board-title {
+    color: $main-color;
+    font-weight: bold;
+    font-size: 2em;
+    
+}
+
+#tournament-name{
+    color: $main-color;
+    font-weight: bold;
+    font-size: 1.2em;
+    
+}
+
+// #tournament-board {
+//     display: flex;
+//     flex-wrap: wrap;
+// }
+
+#tournament-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-top: 2em;
+}
+
+
+th, td {
+    text-align: center;
+}
+
+thead {
+    background-color: $main-color;
+}
+
+tbody {
+    background-color: white;
+}
+
+th {
+    color: white;
+    font-size: 1em;
+}
+
+td {
+    color: $main-color;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.create-btn {
+    background-color: $main-color;
+    border-radius: 10px;
+}
