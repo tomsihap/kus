@@ -6,6 +6,10 @@
 /public/bundles/
 /var/
 /vendor/
+/public/dist/images/player/*
+/public/dist/images/game/*
+/public/dist/images/team/*
+
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###

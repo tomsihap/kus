@@ -3,32 +3,33 @@
 {% block title %}Tournament{% endblock %}
 
 {% block body %}
-    <h1>{{ tournament.name }}</h1>
-
-    <h3>{{ tournament.teams | length }} Equipe(s) en jeu</h3>
- 
-    
+<div class="container">
+    <div id="tournament-head">
+        <a class="btn btn-success create-btn " href="{{ path('team_new') }}">+ add new team</a>
+    </div>
         <table class="table">
-            
+            <thead>
                 <tr>
-                    <th>Image</th>
+                    <th>Teams</th>
                     <th>Name</th>
-                    <th>Score</th>
-                    <th>Victories</th>
                     <th>Players</th>
+                    <th>Victories</th>
+                    <th>Score</th>
+                    <th>Position</th>
                     <th>Options</th>
-
                 </tr>
+            </thead>
         {% for team in tournament.teams %}
                 <tr>
                     <td><img class="team-pic" src="{{ asset('dist/images/team/' ~ team.getPhoto()) }}"></td>
-                    <td>{{ team.name }}</td>
-                    <td>{{ team.score }}</td>
-                    <td>{{ team.victories }}</td>
-                    <td>{% for player in team.players %}
-                        {{ player.pseudo }}
-                        {% endfor %}
-                    </td>
+                    <td class="tournament-show">{{ team.name }}</td>
+                     <td class="tournament-show" id="list-players">{% for player in team.players %}
+                         {{ player.pseudo }}
+                         {% endfor %}
+                     </td>
+                    <td class="tournament-show">{{ team.victories }}</td>
+                    <td class="tournament-show">{{ team.score }}</td>
+                    <td></td>
                     <td>
                     <a  class="btn btn-success" href="{{ path('team_show',   {'id': team.id}) }}">show</a>
                     <a  class="btn btn-info" href="{{ path('team_edit',       {'id': team.id}) }}">edit</a>
@@ -38,36 +39,42 @@
         </table>
     
 
-  
+<!--   
     <h4>Ajouter une équipe : </h3>
     {{ form_start(teamForm) }}
     {{ form_row(teamForm.name) }}
     {{ form_row(teamForm.photo) }}
     <button type="submit" class="btn btn-success">Créer</button>
-    {{ form_end(teamForm) }}
+    {{ form_end(teamForm) }} -->
 
     <br>
-    <h3>{{ tournament.players | length }} Joueur(s) en jeu</h3>
+    
     
     <br>
+    <div id="tournament-head">
+        <a class="btn btn-success create-btn " href="{{ path('player_new') }}">+ add new player</a>
+    </div>
      <table class="table">
+         <thead>
          <tr>
-             <th>Image</th>
+             <th>Players</th>
              <th>Name</th>
-             <th>Score</th>
-             <th>Victories</th>
              <th>Team</th>
+             <th>Victories</th>
+             <th>Score</th>
+             <th>Position</th>
              <th>Options</th>
-
          </tr>
+         </thead>
          {% for team in tournament.teams %}
          {% for player in team.players %}
          <tr>
-             <td><img src="{{ asset('dist/images/player/' ~ player.getProfilPic()) }}"></td>
-             <td>{{ player.pseudo }}</td>
-             <td>{{ player.score }}</td>
-             <td>{{ player.victories }}</td>
-             <td>{{ player.team.name }}</td>
+             <td><img class="player-pic" src="{{ asset('dist/images/player/' ~ player.getProfilPic()) }}"></td>
+             <td class="tournament-show">{{ player.pseudo }}</td>
+             <td class="tournament-show">{{ player.team.name }}</td>
+             <td class="tournament-show">{{ player.score }}</td>
+             <td class="tournament-show">{{ player.victories }}</td>
+             <td class="tournament-show"></td>
              <td>
                  <a class="btn btn-success" href="{{ path('player_show',   {'id': player.id}) }}">show</a>
                  <a class="btn btn-info" href="{{ path('player_edit',       {'id': player.id}) }}">edit</a>
@@ -77,30 +84,35 @@
          {% endfor %}
      </table>
 
-    <h4>Ajouter un joueur : </h3>
+    <!-- <h4>Ajouter un joueur : </h3>
     {{ form_start(playerForm) }}
     {{ form_row(playerForm.pseudo) }}
     {{ form_row(playerForm.team) }}
     {{ form_row(playerForm.profilPic) }}
     <button type="submit" class="btn btn-success">Créer</button>
-    {{ form_end(playerForm) }}
+    {{ form_end(playerForm) }} -->
 
 
+    
     <br>
-    <h3>{{ tournament.games | length }} Jeu(x)</h3>
-    <br>
+    <div id="tournament-head">
+        <a class="btn btn-success create-btn " href="{{ path('game_new') }}">+ add new game</a>
+    </div>
      <table class="table">
-
+<thead>
          <tr>
+             <th>Game</th>
              <th>Name</th>
              <th>Value</th>
              <th>Options</th>
 
          </tr>
+         </thead>
          {% for game in tournament.games %}
          <tr>
-             <td>{{ game.name }}</td>
-             <td>{{ game.victoryValue }}</td>
+             <td class="tournament-show"><img class="game-pic" src="{{ asset('dist/images/game/' ~ game.getPhoto()) }}"></td>
+             <td class="tournament-show">{{ game.name }}</td>
+             <td class="tournament-show">{{ game.victoryValue }}</td>
              <td>
                  <a class="btn btn-success" href="{{ path('game_show',   {'id': game.id}) }}">show</a>
                  <a class="btn btn-info" href="{{ path('game_edit',       {'id': game.id}) }}">edit</a>
@@ -109,20 +121,21 @@
          {% endfor %}
      </table>
 
-
+<!-- 
     <h4>Ajouter un jeu : </h3>
     {{ form_start(gameForm) }}
     {{ form_row(gameForm.name) }}
     {{ form_row(gameForm.victoryValue) }}
     <button type="submit" class="btn btn-success">Créer</button>
-    {{ form_end(gameForm) }}
+    {{ form_end(gameForm) }} -->
 
 
     <br>
-    <h3>{{ tournament.contests | length }} Match(s) joué(s)</h3>
-    <br>
+    <div id="tournament-head">
+        <a class="btn btn-success create-btn " href="{{ path('contest_new') }}">+ add new game</a>
+    </div>
     <table class="table">
-
+<thead>
         <tr>
             <th>Date</th>
             <th>Winner</th>
@@ -131,12 +144,13 @@
             <th>Options</th>
 
         </tr>
+        </thead>
         {% for contest in tournament.contests %}
         <tr>
-            <td>{{ contest.createdAt | date('Y-m-d H:i:s') }}</td>
-            <td>{{ contest.player.pseudo}}</td>
-            <td>{{ contest.game.name }}</td>
-            <td>{{ contest.game.victoryValue }}</td>
+            <td class="tournament-show">{{ contest.createdAt | date('Y-m-d H:i:s') }}</td>
+            <td class="tournament-show">{{ contest.player.pseudo}}</td>
+            <td class="tournament-show">{{ contest.game.name }}</td>
+            <td class="tournament-show">{{ contest.game.victoryValue }}</td>
             <td>
                 <a class="btn btn-success" href="{{ path('contest_show',   {'id': contest.id}) }}">show</a>
                 <a class="btn btn-info" href="{{ path('contest_edit',       {'id': contest.id}) }}">edit</a>
@@ -145,18 +159,20 @@
         {% endfor %}
     </table>
 
-    <h4>Ajouter un Match : </h3>
+    <!-- <h4>Ajouter un Match : </h3>
     {{ form_start(contestForm) }}
     {{ form_row(contestForm.player) }}
     {{ form_row(contestForm.game) }}
     <!-- {{ form_row(playerForm.profilPic) }} -->
-    <button type="submit" class="btn btn-success">Créer</button>
-    {{ form_end(contestForm) }}
+    <!-- <button type="submit" class="btn btn-success">Créer</button> -->
+    <!-- {{ form_end(contestForm) }} -->
 
 
-    <a href="{{ path('tournament_index') }}">back to list</a>
+    <!-- <a href="{{ path('tournament_index') }}">back to list</a>
 
     <a href="{{ path('tournament_edit', {'id': tournament.id}) }}">edit</a>
 
-    {{ include('tournament/_delete_form.html.twig') }}
+    {{ include('tournament/_delete_form.html.twig') }} -->
+
+    </div>
 {% endblock %}

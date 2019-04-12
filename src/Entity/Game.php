@@ -39,6 +39,11 @@ class Game
      */
     private $tournament;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Photo;
+
     public function __construct()
     {
         $this->contests = new ArrayCollection();
@@ -112,6 +117,18 @@ class Game
     public function setTournament(?Tournament $tournament): self
     {
         $this->tournament = $tournament;
+
+        return $this;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->Photo;
+    }
+
+    public function setPhoto(?string $Photo): self
+    {
+        $this->Photo = $Photo;
 
         return $this;
     }

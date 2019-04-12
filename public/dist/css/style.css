@@ -89,9 +89,9 @@ form a {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   -webkit-box-align: end;
   -ms-flex-align: end;
   align-items: flex-end;
@@ -110,11 +110,34 @@ th {
   color: white;
   font-size: 1em; }
 
-td {
+.tournament-index {
   color: #4F7D63;
   font-size: 2em;
   font-weight: bold; }
 
+.tournament-show {
+  color: #4F7D63;
+  font-size: 1.3em;
+  font-weight: bold; }
+
+#list-players {
+  font-size: 1em; }
+
 .create-btn {
   background-color: #4F7D63;
   border-radius: 10px; }
+
+.team-pic {
+  border-radius: 50%;
+  width: 3em;
+  height: 3em; }
+
+.player-pic {
+  border-radius: 50%;
+  width: 3em;
+  height: 3em; }
+
+.game-pic {
+  border-radius: 50%;
+  width: 3em;
+  height: 3em; }

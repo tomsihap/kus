@@ -19,7 +19,7 @@
 
 #tournament-head {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: flex-end;
     padding-top: 2em;
 }
@@ -42,13 +42,43 @@ th {
     font-size: 1em;
 }
 
-td {
+.tournament-index{
     color: $main-color;
     font-size: 2em;
     font-weight: bold;
 }
 
+.tournament-show {
+    color: $main-color;
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+
+#list-players {
+    font-size: 1em;
+
+}
+
 .create-btn {
     background-color: $main-color;
     border-radius: 10px;
+}
+
+.team-pic {
+    border-radius: 50%;
+    width: 3em;
+    height: 3em;
+}
+
+.player-pic {
+    border-radius: 50%;
+    width: 3em;
+    height: 3em;
+}
+
+.game-pic {
+    border-radius: 50%;
+    width: 3em;
+    height: 3em;
 }

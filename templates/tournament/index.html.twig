@@ -24,10 +24,10 @@
         </thead>
         <tbody>
             <tr>
-                <td>{{ tournament.teams | length }}</td>
-                <td>{{ tournament.players | length }}</td>
-                <td>{{ tournament.contests | length }}</td>
-                <td>{{ tournament.games | length }}</td>
+                <td class="tournament-index">{{ tournament.teams | length }}</td>
+                <td class="tournament-index">{{ tournament.players | length }}</td>
+                <td class="tournament-index">{{ tournament.contests | length }}</td>
+                <td class="tournament-index">{{ tournament.games | length }}</td>
                 <td>
                     <a class="btn btn-success " href="{{ path('tournament_show', {'id': tournament.id}) }}">Getin</a>
                     <a class="btn btn-danger " href="{{ path('tournament_delete', {'id': tournament.id}) }}">Delete</a>
