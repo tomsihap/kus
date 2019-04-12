@@ -3,12 +3,45 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+
+<div class="container">
+
+
+
 
     {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword) }}
+       
 
-        <button class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+
+
+        <div class="form-input">
+            <h1 id="log-title">Inscription</h1>
+            {{ form_label(registrationForm.email, 'email') }}
+            {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+            {{ form_row(registrationForm.email) }}
+        </div>
+        <div class="form-input">
+            {{ form_label(registrationForm.plainPassword, 'password') }}
+            {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+            {{ form_row(registrationForm.plainPassword) }}
+        </div>
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+        <div class="form-btn">
+
+            <button class="btn form-log-btn ">Register</button></div>
+
+        <p id="register-link"><a href="{{ path('app_login') }}">Already have an account ? Login here !</a></p>
+
+     {{ form_end(registrationForm) }}
+</div>
+    
+
+    
+        
+        
+
+        
+   
 {% endblock %}
