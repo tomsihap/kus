@@ -18,7 +18,9 @@ class TeamType extends AbstractType
             ->add('photo', FileType::class, [
                 'mapped' => false,
                 'label' => 'Add a picture',
+                'required' => false,
             ])
+            
         ;
     }
 

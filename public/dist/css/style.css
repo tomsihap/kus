@@ -158,6 +158,12 @@ th {
   -ms-flex-wrap: nowrap;
   flex-wrap: nowrap; }
 
+.add-title {
+  color: #4F7D63;
+  text-align: center;
+  font-size: 1.5em;
+  padding-top: 1em; }
+
 .team-modal, .player-modal, .game-modal, .contest-modal {
   width: 100%;
   height: 100%;
@@ -177,8 +183,8 @@ th {
 
 .modal-content {
   width: 500px;
-  height: 300px;
-  background-color: white;
+  height: 450px;
+  background-color: #F3F3F3;
   opacity: 1;
   position: relative; }
 
@@ -192,3 +198,18 @@ th {
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
   cursor: pointer; }
+
+.add-input {
+  display: block;
+  width: 50%;
+  margin: 1em auto; }
+
+.sub-btn {
+  text-align: center;
+  padding-top: 1em; }
+
+.hide-btn {
+  display: none; }
+
+.btn-add {
+  background-color: #4F7D63; }
