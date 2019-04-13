@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-            integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
-            integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
-        <link href="{{ asset('dist/css/normalize.css') }}" rel="stylesheet">
-        <link href="{{ asset('dist/css/style.css') }}" rel="stylesheet">
-        {% endblock %}
-    </head>
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+        integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <link href="{{ asset('dist/css/normalize.css') }}" rel="stylesheet">
+    <link href="{{ asset('dist/css/style.css') }}" rel="stylesheet">
+    {% endblock %}
+</head>
+
 <body>
     <header class="container-fluid">
         <div class="navbar row">
@@ -22,13 +24,12 @@
                 <div>
                     <i class="fas fa-bars"></i>
                     {% if app.user %}
-                     <a href="{{ path('logout') }}" class="log-btn">Deconnexion</a>
+                    <a href="{{ path('tournament_index') }}" class="log-btn">Profil</a>
+                    <a href="{{ path('logout') }}" class="log-btn">Deconnexion</a>
                     {% else %}
-                    <a href="{{ path('app_login') }}"
-                        class="log-btn">Connexion</a>
-                    <a href="{{ path('app_register') }}"
-                        class="log-btn">S'inscrire</a>
-                    {% endif %}    
+                    <a href="{{ path('app_login') }}" class="log-btn">Connexion</a>
+                    <a href="{{ path('app_register') }}" class="log-btn">S'inscrire</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -43,7 +44,8 @@
     <footer class="container-fluid">
         <div class="navbar-dark bg-dark shadow-sm">
             <div class=" d-flex ">
-                <div class=""><div />
+                <div class="">
+                    <div />
                 </div>
             </div>
     </footer>
@@ -51,8 +53,13 @@
 </body>
 
 </html>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+
+<body>
+    {% block body %}{% endblock %}
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{{ asset('dist/js/script.js') }}"></script>
+    {% block javascripts %}{% endblock %}
+</body>
+
 </html>

@@ -85,6 +85,13 @@ form a {
   font-weight: bold;
   font-size: 1.2em; }
 
+#tournament-board {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap; }
+
 #tournament-head {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -141,3 +148,47 @@ th {
   border-radius: 50%;
   width: 3em;
   height: 3em; }
+
+.edit-btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap; }
+
+.team-modal, .player-modal, .game-modal, .contest-modal {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: none; }
+
+.modal-content {
+  width: 500px;
+  height: 300px;
+  background-color: white;
+  opacity: 1;
+  position: relative; }
+
+.close-team, .close-player, .close-game, .close-contest {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  font-size: 2em;
+  color: black;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  cursor: pointer; }

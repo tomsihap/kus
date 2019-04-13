@@ -12,10 +12,10 @@
     
 }
 
-// #tournament-board {
-//     display: flex;
-//     flex-wrap: wrap;
-// }
+#tournament-board {
+    display: flex;
+    flex-wrap: wrap;
+}
 
 #tournament-head {
     display: flex;
@@ -81,4 +81,41 @@ th {
     border-radius: 50%;
     width: 3em;
     height: 3em;
+}
+
+
+.edit-btn {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+}
+
+.team-modal, .player-modal, .game-modal, .contest-modal {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); 
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+.modal-content {
+    width: 500px;
+    height: 300px;
+    background-color: white;
+    opacity: 1;
+    position: relative;
+}
+
+.close-team, .close-player, .close-game, .close-contest {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    font-size: 2em;
+    color: black;
+    transform: rotate(45deg);
+    cursor: pointer;
 }
