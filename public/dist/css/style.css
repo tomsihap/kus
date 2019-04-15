@@ -1,6 +1,6 @@
 /* NAVBAR */
 .navbar {
-  background-color: #4F7D63; }
+  background-color: #4288EB; }
   .navbar a {
     color: white; }
   .navbar .navbar-brand {
@@ -19,22 +19,22 @@
 body {
   background-color: #F3F3F3; }
   body #welcome-title {
-    color: #4F7D63;
+    color: #4288EB;
     font-weight: bold;
     font-size: 3em;
     padding-top: 2em; }
   body #p-intro {
-    color: #4F7D63;
+    color: #4288EB;
     font-size: 2em; }
 
 #log-title {
-  color: #4F7D63;
+  color: #4288EB;
   font-weight: bold;
   font-size: 2em;
   padding-top: 2em; }
 
 p, label {
-  color: #4F7D63;
+  color: #4288EB;
   margin: 0px; }
 
 .form-control {
@@ -44,7 +44,7 @@ input {
   margin-bottom: 2em; }
 
 .form-log-btn {
-  background-color: #4F7D63;
+  background-color: #4288EB;
   color: white;
   padding: 1em 2em;
   font-weight: bold;
@@ -60,7 +60,7 @@ form #register-link {
   text-align: center; }
 
 form a {
-  color: #4F7D63; }
+  color: #4288EB; }
 
 .form-input {
   margin-left: auto;
@@ -76,12 +76,12 @@ form a {
   width: 50%; }
 
 #tournament-board-title {
-  color: #4F7D63;
+  color: #4288EB;
   font-weight: bold;
   font-size: 2em; }
 
 #tournament-name {
-  color: #4F7D63;
+  color: #4288EB;
   font-weight: bold;
   font-size: 1.2em; }
 
@@ -108,7 +108,7 @@ th, td {
   text-align: center; }
 
 thead {
-  background-color: #4F7D63; }
+  background-color: #4288EB; }
 
 tbody {
   background-color: white; }
@@ -118,12 +118,12 @@ th {
   font-size: 1em; }
 
 .tournament-index {
-  color: #4F7D63;
+  color: #4288EB;
   font-size: 2em;
   font-weight: bold; }
 
 .tournament-show {
-  color: #4F7D63;
+  color: #4288EB;
   font-size: 1.3em;
   font-weight: bold; }
 
@@ -131,7 +131,7 @@ th {
   font-size: 1em; }
 
 .create-btn {
-  background-color: #4F7D63;
+  background-color: #4288EB;
   border-radius: 10px; }
 
 .team-pic {
@@ -159,7 +159,7 @@ th {
   flex-wrap: nowrap; }
 
 .add-title {
-  color: #4F7D63;
+  color: #4288EB;
   text-align: center;
   font-size: 1.5em;
   padding-top: 1em; }
@@ -212,4 +212,39 @@ th {
   display: none; }
 
 .btn-add {
-  background-color: #4F7D63; }
+  background-color: #4288EB; }
+
+.pic-profil {
+  border-radius: 50%;
+  border: 3px solid #4288EB;
+  width: 9em;
+  height: 9em;
+  margin-top: 3em; }
+
+.head-profil {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+  -ms-flex-align: end;
+  align-items: flex-end; }
+
+.head-info {
+  margin-left: 2em; }
+
+.infos {
+  display: block; }
+
+.info-player {
+  font-size: 3em;
+  font-weight: bold;
+  color: #4288EB; }
+
+.info-team {
+  font-size: 2em;
+  color: #4288EB;
+  padding-bottom: 0.5em; }
+
+.resume-title {
+  color: #4288EB;
+  font-size: 1.5em; }

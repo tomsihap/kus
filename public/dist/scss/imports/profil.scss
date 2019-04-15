@@ -1,0 +1,39 @@
+.pic-profil {
+    border-radius: 50%;
+    border: 3px solid $main-color;
+    width: 9em;
+    height: 9em;
+    
+    margin-top: 3em;
+}
+
+.head-profil {
+    display: flex;
+    align-items: flex-end;
+}
+
+.head-info {
+    margin-left: 2em;
+}
+
+.infos {
+    display: block;
+}
+
+.info-player {
+    
+    font-size: 3em;
+    font-weight: bold;
+    color: $main-color;
+}
+
+.info-team {
+    font-size: 2em;
+    color: $main-color;
+    padding-bottom: 0.5em;
+}
+
+.resume-title {
+    color: $main-color;
+    font-size: 1.5em;
+}

@@ -115,6 +115,6 @@ class PlayerController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('player_index');
+        return $this->redirectToRoute('tournament_index');
     }
 }

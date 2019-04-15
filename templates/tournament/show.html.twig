@@ -4,6 +4,10 @@
 
 {% block body %}
 <div class="container">
+
+
+    {# ----------TEAMS BOARD---------- #}
+
     <div id="tournament-head">
         <div id="team-btn" class="btn btn-success create-btn">+ add new team</div>
     </div>
@@ -42,8 +46,7 @@
     </table>
 
 
-    <br>
-
+    {# ----------PLAYERS BOARD---------- #}
 
     <br>
     <div id="tournament-head">
@@ -82,9 +85,7 @@
         {% endfor %}
     </table>
 
-
-
-
+    {# ----------GAMES BOARD---------- #}
 
     <br>
     <div id="tournament-head">
@@ -119,7 +120,7 @@
     </table>
 
 
-
+    {# ----------CONTESTS BOARD---------- #}
 
     <br>
     <div id="tournament-head">
@@ -149,26 +150,16 @@
                     <a class="btn btn-warning" href="{{ path('contest_delete',     {'id': contest.id}) }}">delete</a>
                 </div>
             </td>
-
         </tr>
-
         {% endfor %}
     </table>
-
-
-
-
-    <!-- <a href="{{ path('tournament_index') }}">back to list</a>
-
-    <a href="{{ path('tournament_edit', {'id': tournament.id}) }}">edit</a>
-
-    {{ include('tournament/_delete_form.html.twig') }} -->
-
 </div>
 
-<!-- Modal section -->
+<!-- ______________________________________________________________________________________________________________________________________________ -->
 
-<!-- Team Modal -->
+<!-- __________MODAL SECTION__________ -->
+
+<!-- ___________Team Modal___________ -->
 <div class="bg-modal team-modal">
     <div class="modal-content">
         <div class="close-team">
@@ -201,7 +192,10 @@
     </div>
 </div>
 
-<!-- Player Modal -->
+<!-- ______________________________________________________________________________________________________________________________________________ -->
+
+<!-- __________Player Modal__________ -->
+
 <div class="bg-modal player-modal">
     <div class="modal-content">
         <div class="close-player">
@@ -237,7 +231,10 @@
     </div>
 </div>
 
-<!-- Game Modal -->
+<!-- ______________________________________________________________________________________________________________________________________________ -->
+
+<!-- __________Game Modal__________ -->
+
 <div class="bg-modal game-modal">
     <div class="modal-content">
         <div class="close-game">
@@ -274,7 +271,9 @@
     </div>
 </div>
 
-<!-- Contest Modal -->
+<!-- ______________________________________________________________________________________________________________________________________________ -->
+
+<!-- __________Contest Modal__________ -->
 <div class="bg-modal contest-modal">
     <div class="modal-content">
         <div class="close-contest">
