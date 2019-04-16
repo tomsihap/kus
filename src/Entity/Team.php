@@ -23,18 +23,9 @@ class Team
      */
     private $name;
 
+   
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $victories;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $score;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Player", mappedBy="team")
+     * @ORM\OneToMany(targetEntity="App\Entity\Player", mappedBy="team", orphanRemoval=true)
      */
     private $players;
 
@@ -52,8 +43,7 @@ class Team
     public function __construct()
     {
         $this->players = new ArrayCollection();
-        $this->setVictories(0);
-        $this->setScore(0); 
+        
     }
 
     public function getId(): ?int
@@ -73,29 +63,6 @@ class Team
         return $this;
     }
 
-    public function getVictories(): ?int
-    {
-        return $this->victories;
-    }
-
-    public function setVictories(int $victories): self
-    {
-        $this->victories = $victories;
-
-        return $this;
-    }
-
-    public function getScore(): ?int
-    {
-        return $this->score;
-    }
-
-    public function setScore(int $score): self
-    {
-        $this->score = $score;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Player[]
@@ -151,4 +118,22 @@ class Team
 
         return $this;
     }
+
+    public function getScore(): ?int {
+        $tScore = 0;
+        foreach ($this->getPlayers() as $p) {
+            $tScore += $p->getScore();
+        }
+        return $tScore;
+    }
+
+    public function getVictories(): ?int
+    {
+        $tVictories = 0;
+        foreach ($this->getPlayers() as $p) {
+            $tVictories += $p->getVictories();
+        }
+        return $tVictories;
+    }
+   
 }

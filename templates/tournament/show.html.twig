@@ -8,39 +8,35 @@
 
     {# ----------TEAMS BOARD---------- #}
 
+    
+
     <div id="tournament-head">
         <div id="team-btn" class="btn btn-success create-btn">+ add new team</div>
     </div>
-    <table class="table">
+    <table class="table" >
         <thead>
             <tr>
-                <th>Teams</th>
-                <th>Name</th>
-                <th>Players</th>
-                <th>Victories</th>
-                <th>Score</th>
-                <th>Position</th>
-                <th>Options</th>
+                <th>Teams</i></th>
+                <th>Name <i class="fas fa-caret-down"></i></th>
+                <th>Players <i class="fas fa-caret-down"></i></th>
+                <th>Victories <i class="fas fa-caret-down"></i></th>
+                <th>Score <i class="fas fa-caret-down"></i></th>
+                <th>Position <i class="fas fa-caret-down"></i></th>
+                
             </tr>
         </thead>
         {% for team in tournament.teams %}
+    
         <tr>
             <td><img class="team-pic" src="{{ asset('dist/images/team/' ~ team.getPhoto()) }}"></td>
-            <td class="tournament-show">{{ team.name }}</td>
+            <td class="tournament-show"><a href="{{ path('team_show',   {'id': team.id}) }}"> {{ team.name }}</a></td>
             <td class="tournament-show" id="list-players">{% for player in team.players %}
-                {{ player.pseudo }}
+                <a href="{{ path('player_show',   {'id': player.id}) }}">{{ player.pseudo }}</a>
                 {% endfor %}
             </td>
-            <td class="tournament-show">{{ team.victories }}</td>
-            <td class="tournament-show">{{ team.score }}</td>
+            <td class="tournament-show">{{ team.getVictories() }}</td>
+            <td class="tournament-show">{{ team.getScore() }}</td>
             <td></td>
-            <td>
-                <div class="edit-btn">
-                    <a class="btn btn-success" href="{{ path('team_show',   {'id': team.id}) }}">show</a>
-                    <a class="btn btn-info" href="{{ path('team_edit',       {'id': team.id}) }}">edit</a>
-                    <a class="btn btn-warning" href="{{ path('team_delete',     {'id': team.id}) }}">delete</a></div>
-            </td>
-
         </tr>
         {% endfor %}
     </table>
@@ -56,30 +52,24 @@
         <thead>
             <tr>
                 <th>Players</th>
-                <th>Name</th>
-                <th>Team</th>
-                <th>Victories</th>
-                <th>Score</th>
-                <th>Position</th>
-                <th>Options</th>
+                <th>Name <i class="fas fa-caret-down"></i></th>
+                <th>Team <i class="fas fa-caret-down"></i></th>
+                <th>Victories <i class="fas fa-caret-down"></i></th>
+                <th>Score <i class="fas fa-caret-down"></i></th>
+                <th>Position <i class="fas fa-caret-down"></i></th>
+                
             </tr>
         </thead>
         {% for team in tournament.teams %}
         {% for player in team.players %}
         <tr>
             <td><img class="player-pic" src="{{ asset('dist/images/player/' ~ player.getProfilPic()) }}"></td>
-            <td class="tournament-show">{{ player.pseudo }}</td>
-            <td class="tournament-show">{{ player.team.name }}</td>
+            <td class="tournament-show"><a href="{{ path('player_show',   {'id': player.id}) }}">{{ player.pseudo }}</a>
+            </td>
+            <td class="tournament-show"><a href="{{ path('team_show',   {'id': team.id}) }}"> {{ player.team.name }}</a></td>
             <td class="tournament-show">{{ player.victories }}</td>
             <td class="tournament-show">{{ player.score }}</td>
             <td class="tournament-show"></td>
-            <td>
-                <div class="edit-btn">
-                    <a class="btn btn-success" href="{{ path('player_show',   {'id': player.id}) }}">show</a>
-                    <a class="btn btn-info" href="{{ path('player_edit',       {'id': player.id}) }}">edit</a>
-                    <a class="btn btn-warning" href="{{ path('player_delete',     {'id': player.id}) }}">delete</a>
-                </div>
-            </td>
         </tr>
         {% endfor %}
         {% endfor %}
@@ -95,26 +85,18 @@
         <thead>
             <tr>
                 <th>Game</th>
-                <th>Name</th>
-                <th>Value</th>
-                <th>Played</th>
-                <th>Options</th>
-
+                <th>Name <i class="fas fa-caret-down"></i></th>
+                <th>Value <i class="fas fa-caret-down"></i></th>
+                <th>Played <i class="fas fa-caret-down"></i></th>
             </tr>
         </thead>
         {% for game in tournament.games %}
         <tr>
             <td class="tournament-show"><img class="game-pic" src="{{ asset('dist/images/game/' ~ game.getPhoto()) }}">
             </td>
-            <td class="tournament-show">{{ game.name }}</td>
+            <td class="tournament-show"><a href="{{ path('game_show',   {'id': game.id}) }}">{{ game.name }}</a></td>
             <td class="tournament-show">{{ game.victoryValue }}</td>
-            <td class="tournament-show"></td>
-            <td>
-                <div class="edit-btn">
-                    <a class="btn btn-success" href="{{ path('game_show',   {'id': game.id}) }}">show</a>
-                    <a class="btn btn-info" href="{{ path('game_edit',       {'id': game.id}) }}">edit</a>
-                    <a class="btn btn-warning" href="{{ path('game_delete',     {'id': game.id}) }}">delete</a></div>
-            </td>
+            <td class="tournament-show">{{ game.getPlayed() }}</td>
         </tr>
         {% endfor %}
     </table>
@@ -130,24 +112,24 @@
         <thead>
             <tr>
                 <th>Date</th>
-                <th>Winner</th>
-                <th>Game</th>
-                <th>Points</th>
-                <th>Options</th>
+                <th>Winner <i class="fas fa-caret-down"></i></th>
+                <th>Loser <i class="fas fa-caret-down"></i></th>
+                <th>Game <i class="fas fa-caret-down"></i></th>
+                <th>Points <i class="fas fa-caret-down"></i></th>
+                <th>Options <i class="fas fa-caret-down"></i></th>
 
             </tr>
         </thead>
         {% for contest in tournament.contests %}
         <tr>
-            <td class="tournament-show">{{ contest.createdAt | date('Y-m-d H:i:s') }}</td>
+            <td class="tournament-show">{{ contest.createdAt | date('d/m/Y à H:i') }}</td>
             <td class="tournament-show">{{ contest.player.pseudo}}</td>
+            <td class="tournament-show">{{ contest.loser.pseudo }}</td>
             <td class="tournament-show">{{ contest.game.name }}</td>
             <td class="tournament-show">{{ contest.game.victoryValue }}</td>
             <td>
                 <div class="edit-btn">
-                    <a class="btn btn-success" href="{{ path('contest_show',   {'id': contest.id}) }}">show</a>
-                    <a class="btn btn-info" href="{{ path('contest_edit',       {'id': contest.id}) }}">edit</a>
-                    <a class="btn btn-warning" href="{{ path('contest_delete',     {'id': contest.id}) }}">delete</a>
+                    <a class="btn btn-info" href="{{ path('contest_edit',       {'id': contest.id}) }}">edit</a> 
                 </div>
             </td>
         </tr>
@@ -282,9 +264,13 @@
         <h3 class="add-title">Add a contest : </h3>
             {{ form_start(contestForm) }}
 
-            <div class="add-input">{{ form_label(contestForm.player, 'Player') }}</div>
+            <div class="add-input">{{ form_label(contestForm.player, 'Winner') }}</div>
             {{ form_widget(contestForm.player, {'attr': {'class': 'form-control add-input' }}) }}
             {{ form_row(contestForm.player) }}
+
+            <div class="add-input">{{ form_label(contestForm.loser, 'Loser') }}</div>
+            {{ form_widget(contestForm.loser, {'attr': {'class': 'form-control add-input' }}) }}
+            {{ form_row(contestForm.loser) }}
 
             <div class="add-input">{{ form_label(contestForm.game, 'Game') }}</div>
             {{ form_widget(contestForm.game, {'attr': {'class': 'form-control add-input' }}) }}

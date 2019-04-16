@@ -212,14 +212,26 @@ class TournamentController extends AbstractController
 
             if ($contestForm->isSubmitted() && $contestForm->isValid()) {
 
-                $contest->setTournament($tournament);
+                
 
+                $contest->setTournament($tournament);
+                
+
+                
                 $playerEntity = $contestForm->get('player')->getData();
+                $loserEntity = $contestForm->get('loser')->getData();
                 $gameEntity = $contestForm->get('game')->getData();
 
-                //Getting player(s)'s score and victories before the contest
+                
+
+                //Getting player(s)'s score, victories and contests played before the contest
                 $initialPlayerScore = $playerEntity->getScore();
                 $initialPlayerVictories = $playerEntity->getVictories();
+                $initialPlayerContestPlayed = $playerEntity->getContestPlayed();
+
+                //Getting loser(s)'s contests played before the contest
+                $initialLoserContestPlayed = $loserEntity->getContestPlayed();
+                $initialLoserContestLose = $loserEntity->getLose();
 
                 //Getting player's team score and victories before the contest
                 $selectedTeam = $playerEntity->getTeam();
@@ -237,13 +249,26 @@ class TournamentController extends AbstractController
                 $updatedPlayerVictories =  $initialPlayerVictories + 1;
                 $playerEntity->setVictories($updatedPlayerVictories);
 
-                //Update player's team's score
-                $updatedTeamScore = $initalTeamScore + $selectedScore;
-                $selectedTeam->setScore($updatedTeamScore);
+                //Updtae player's contests played
+                $updatedPlayerContestPlayed = $initialPlayerContestPlayed + 1;
+                $playerEntity->setContestPlayed($updatedPlayerContestPlayed);
 
-                //Update player's team's victories    
-                $updatedTeamVictories =  $initialTeamVictories + 1;
-                $selectedTeam->setVictories($updatedTeamVictories);
+                //Updtae loser's contests played
+                $updatedLoserContestPlayed = $initialLoserContestPlayed + 1;
+                $loserEntity->setContestPlayed( $updatedLoserContestPlayed);
+
+                //Updtae loser's contests lose
+                $updatedLoserContestLose = $initialLoserContestLose + 1;
+                $loserEntity->setLose($updatedLoserContestLose);
+
+                // //Update player's team's score
+                // $updatedTeamScore = $initalTeamScore + $selectedScore;
+                // $selectedTeam->setScore($updatedTeamScore);
+
+                // //Update player's team's victories    
+                // $updatedTeamVictories =  $initialTeamVictories + 1;
+                // $selectedTeam->setVictories($updatedTeamVictories);
+                // TeamController::count($selectedTeam);
 
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($contest);

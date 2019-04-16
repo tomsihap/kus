@@ -132,4 +132,15 @@ class Game
 
         return $this;
     }
+
+    public function getPlayed(): ?int {
+        $played = 0;
+        foreach ($this->getContests() as $c) {
+
+            if ($c->getGame()->getId() == $this->id ) {
+            $played += 1;
+            }
+        }
+        return $played;
+    }
 }

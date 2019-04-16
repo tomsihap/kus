@@ -54,11 +54,23 @@ class Player
      */
     private $tournament;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $contestPlayed;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $lose;
+
     public function __construct()
     {
         $this->contests = new ArrayCollection();
         $this->setVictories(0);
         $this->setScore(0);
+        $this->setContestPlayed(0);
+        $this->setLose(0);
     }
 
     public function getId(): ?int
@@ -165,6 +177,30 @@ class Player
     public function setTournament(?Tournament $tournament): self
     {
         $this->tournament = $tournament;
+
+        return $this;
+    }
+
+    public function getContestPlayed(): ?int
+    {
+        return $this->contestPlayed;
+    }
+
+    public function setContestPlayed(int $contestPlayed): self
+    {
+        $this->contestPlayed = $contestPlayed;
+
+        return $this;
+    }
+
+    public function getLose(): ?int
+    {
+        return $this->lose;
+    }
+
+    public function setLose(int $lose): self
+    {
+        $this->lose = $lose;
 
         return $this;
     }

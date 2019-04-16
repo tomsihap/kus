@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Team;
 use App\Form\TeamType;
+use App\Entity\Player;
+use App\Form\PlayerType;
 use App\Repository\TeamRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -53,6 +55,7 @@ class TeamController extends AbstractController
      */
     public function show(Team $team): Response
     {
+      
         return $this->render('team/show.html.twig', [
             'team' => $team,
         ]);
@@ -93,4 +96,24 @@ class TeamController extends AbstractController
 
         return $this->redirectToRoute('team_index');
     }
+
+    // /**
+    //  * @Route("/{id}/test", name="team_test", methods={"GET", "POST"})
+    //  */
+    // public function count(Team $team)
+    // {
+        
+    //     $tVictories = 0;
+    //     $tScore = 0;
+    //     foreach ($team->getPlayers() as $p) {
+    //         $tVictories += $p->getVictories();
+    //         $tScore += $p->getScore();
+    //     }
+
+    //     $team->setVictories($tVictories);
+    //     $team->setScore($tScore);
+
+    //     return $team;
+    // }
+    
 }

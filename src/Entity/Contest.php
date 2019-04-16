@@ -39,6 +39,11 @@ class Contest
      */
     private $tournament;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Player", inversedBy="contests")
+     */
+    private $loser;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -94,6 +99,18 @@ class Contest
     public function setTournament(?Tournament $tournament): self
     {
         $this->tournament = $tournament;
+
+        return $this;
+    }
+
+    public function getLoser(): ?Player
+    {
+        return $this->loser;
+    }
+
+    public function setLoser(?Player $loser): self
+    {
+        $this->loser = $loser;
 
         return $this;
     }

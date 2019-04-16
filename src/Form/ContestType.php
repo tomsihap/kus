@@ -20,6 +20,10 @@ class ContestType extends AbstractType
                 'class' => Player::class,
                 'choice_label' => 'pseudo',
             ])
+            ->add('loser', EntityType::class, [
+                'class' => Player::class,
+                'choice_label' => 'pseudo',
+            ])
             ->add('game', EntityType::class, [
                 'class' => Game::class,
                 'choice_label' => 'name',

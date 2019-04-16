@@ -23,6 +23,7 @@
                 <tr>
                     <th>Score</th>
                     <th>Victories</th>
+                    <th>Loses</th>
                     <th>Played</th>
                     <th>Team Score</th>
                 </tr>
@@ -30,7 +31,8 @@
             <tr>
                 <td class="tournament-show">{{ player.score }}</td>
                 <td class="tournament-show">{{ player.victories }}</td>
-                <td class="tournament-show"></td>
+                <td class="tournament-show">{{ player.lose }}</td>
+                <td class="tournament-show">{{player.contestPlayed}}</td>
                 <td class="tournament-show">{{ player.team.score }}</td>
         </table>
 
@@ -51,8 +53,8 @@
             {% for contest in player.contests %}
             <tr>
                 <td class="tournament-show">{{ contest.createdAt | date('d/m/Y à H:i') }}</td>
-                <td></td>
-                <td></td>
+                <td class="tournament-show">{{ contest.player.pseudo}}</td>
+                <td class="tournament-show">{{ contest.loser.pseudo }}</td>
                 <td class="tournament-show">{{ contest.game.name }}</td>
                 <td class="tournament-show">{{ contest.game.victoryValue }}</td>
                 

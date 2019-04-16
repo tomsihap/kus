@@ -95,3 +95,9 @@ document.getElementById('game_photo').addEventListener("change",
             document.getElementById('custom-game-text').innerHTML = "No file chosen, yet";
         }
     });       
+
+
+
+ $(document).ready(function () {
+     $(".table").tablesorter();    
+ })   
