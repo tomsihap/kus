@@ -232,10 +232,6 @@ class TournamentController extends AbstractController
 
                 $contest->setTournament($tournament);
         
-                $playerEntity = $contestForm->get('player')->getData();
-                $loserEntity = $contestForm->get('loser')->getData();
-                $gameEntity = $contestForm->get('game')->getData();
-
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($contest);
                 $entityManager->flush();

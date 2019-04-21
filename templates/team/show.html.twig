@@ -36,7 +36,7 @@
             <td class="tournament-show">{{ team.getVictories() }}</td>
             <td class="tournament-show">{{ team.getLose() }}</td>
             <td class="tournament-show">{{ team.getPlayed() }}</td>
-            <td class="tournament-show">{{team.getPercentVictories()}}%</td>
+            <td class="tournament-show">{{team.getPercentVictories()}}</td>
             <td class="tournament-show">{% for player in team.players %}
                 <a href="{{ path('player_show',   {'id': player.id}) }}">{{ player.pseudo }}</a>
                 {% endfor %}</td>

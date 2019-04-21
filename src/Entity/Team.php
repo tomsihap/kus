@@ -156,9 +156,15 @@ class Team
 
     public function getPercentVictories()
     {
-        $teamPercentVictories = $this->getVictories() * 100 / $this->getPlayed();
 
-        return round($teamPercentVictories, 2);
+        if($this->getPlayed() > 0) {
+
+            $teamPercentVictories = $this->getVictories() * 100 / $this->getPlayed();
+            return round($teamPercentVictories, 2) . "%";
+        } else {
+            return "/";
+        }
+        
     }
    
    
