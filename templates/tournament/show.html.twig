@@ -7,11 +7,8 @@
 
 
     {# ----------TEAMS BOARD---------- #}
-
-    
-
     <div id="tournament-head">
-        <div id="team-btn" class="btn btn-success create-btn">+ add new team</div>
+        <div id="team-btn" class="btn btn-success create-btn">+</div>
     </div>
     <table class="table" >
         <thead>
@@ -21,12 +18,9 @@
                 <th>Players <i class="fas fa-caret-down"></i></th>
                 <th>Victories <i class="fas fa-caret-down"></i></th>
                 <th>Score <i class="fas fa-caret-down"></i></th>
-                {# <th>Position <i class="fas fa-caret-down"></i></th> #}
-                
             </tr>
         </thead>
         {% for team in tournament.teams %}
-    
         <tr>
             <td><img class="team-pic" src="{{ asset('dist/images/team/' ~ team.getPhoto()) }}"></td>
             <td class="tournament-show"><a href="{{ path('team_show',   {'id': team.id}) }}"> {{ team.name }}</a></td>
@@ -43,11 +37,10 @@
 
 
     {# ----------PLAYERS BOARD---------- #}
-
     <br>
     <div id="tournament-head">
         <a href="#body">
-            <div id="player-btn" class="btn btn-success create-btn">+ add new player</div>
+            <div id="player-btn" class="btn btn-success create-btn">+</div>
         </a>
     </div>
     <table class="table">
@@ -58,8 +51,6 @@
                 <th>Team <i class="fas fa-caret-down"></i></th>
                 <th>Victories <i class="fas fa-caret-down"></i></th>
                 <th>Score <i class="fas fa-caret-down"></i></th>
-                {# <th>Position <i class="fas fa-caret-down"></i></th> #}
-                
             </tr>
         </thead>
         {% for team in tournament.teams %}
@@ -71,7 +62,6 @@
             <td class="tournament-show"><a href="{{ path('team_show',   {'id': team.id}) }}"> {{ player.team.name }}</a></td>
             <td class="tournament-show">{{ player.victories }}</td>
             <td class="tournament-show">{{ player.score }}</td>
-            {# <td class="tournament-show"></td> #}
         </tr>
         {% endfor %}
         {% endfor %}
@@ -82,7 +72,7 @@
     <br>
     <div id="tournament-head">
         <a href="#body">
-            <div id="game-btn" class="btn btn-success create-btn">+ add new game</div>
+            <div id="game-btn" class="btn btn-success create-btn">+</div>
         </a>    
     </div>
     <table class="table">
@@ -107,11 +97,10 @@
 
 
     {# ----------CONTESTS BOARD---------- #}
-
     <br>
     <div id="tournament-head">
         <a class"scroll-up" href="#body">
-            <div id="contest-btn" class="btn btn-success create-btn">+ add new contest</div>
+            <div id="contest-btn" class="btn btn-success create-btn">+</div>
         </a>    
     </div>
     <table class="table">
@@ -123,7 +112,6 @@
                 <th>Game <i class="fas fa-caret-down"></i></th>
                 <th>Points <i class="fas fa-caret-down"></i></th>
                 <th>Options <i class="fas fa-caret-down"></i></th>
-
             </tr>
         </thead>
         {% for contest in tournament.contests %}
@@ -143,9 +131,9 @@
     </table>
 </div>
 
-<!-- ______________________________________________________________________________________________________________________________________________ -->
 
-<!-- __________MODAL SECTION__________ -->
+
+<!-- ________________________________________________________MODAL SECTION_______________________________________________________________________ -->
 
 <!-- ___________Team Modal___________ -->
 <div class="bg-modal team-modal">
@@ -171,7 +159,6 @@
             {{ form_row(teamForm.photo) }}
         </div>
 
-
          <div class="add-input sub-btn">
              <button type="submit" class="btn btn-success btn-add">Create team</button>
          </div>
@@ -180,7 +167,7 @@
     </div>
 </div>
 
-<!-- ______________________________________________________________________________________________________________________________________________ -->
+
 
 <!-- __________Player Modal__________ -->
 
@@ -219,7 +206,7 @@
     </div>
 </div>
 
-<!-- ______________________________________________________________________________________________________________________________________________ -->
+
 
 <!-- __________Game Modal__________ -->
 
@@ -259,7 +246,7 @@
     </div>
 </div>
 
-<!-- ______________________________________________________________________________________________________________________________________________ -->
+
 
 <!-- __________Contest Modal__________ -->
 <div class="bg-modal contest-modal">
@@ -289,9 +276,6 @@
             {{ form_end(contestForm) }}
     </div>
 </div>
-
-
-
 
 
 {% endblock %}

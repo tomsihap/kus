@@ -69,10 +69,11 @@ class GameController extends AbstractController
         $form = $this->createForm(GameType::class, $game);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('game_index', [
+            return $this->redirectToRoute('game_show', [
                 'id' => $game->getId(),
             ]);
         }
@@ -84,16 +85,22 @@ class GameController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="game_delete", methods={"DELETE"})
+     * @Route("/{id}", name="game_delete", methods={"DELETE", "GET"})
      */
     public function delete(Request $request, Game $game): Response
     {
+        $tournament = $game->getTournament();
+
         if ($this->isCsrfTokenValid('delete'.$game->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($game);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('tournament_index');
+        // return $this->redirectToRoute('tournament_index');
+
+        return $this->redirectToRoute('tournament_show', [
+            'id' => $tournament->getId(),
+        ]);
     }
 }

@@ -18,8 +18,8 @@
 
      <div class="add-input">{{ form_label(form.photo, 'Game Pic') }}</div>
      <div class="add-input">
-         <button type="button" id="add-game-file" class="btn btn-success btn-pic">Chose a pic</button>
-         <span id="custom-game-text">No file chosen, yet</span>
+         <button type="button" id="add-game-edit-file" class="btn btn-success btn-pic">Chose a pic</button>
+         <span id="custom-game-edit-text">No file chosen, yet</span>
      </div>
 
 
@@ -31,9 +31,24 @@
 
      <div class="add-input sub-btn">
          <button type="submit" class="btn btn-success btn-add">Edit</button>
-         {{ include('game/_delete_form.html.twig') }}
+         
      </div>
      {{ form_end(form) }}
+     
+    
+     <script>
+         document.getElementById('add-game-edit-file').addEventListener('click', function () {
+             document.getElementById('game_photo').click();
+         });
+         document.getElementById('add-game-edit-file').addEventListener("change", function () {
+             if (document.getElementById('add-game-edit-file').value) {
+                 document.getElementById('custom-game-edit-text').innerHTML = document.getElementById(
+                     'game_photo').value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
+             } else {
+                 document.getElementById('custom-game-edit-text').innerHTML = "No file chosen, yet";
+             }
+         });
+     </script>
 
     
 {% endblock %}

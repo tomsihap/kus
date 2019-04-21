@@ -42,38 +42,6 @@ class ContestController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $playerEntity = $form->get('player')->getData();
-            $gameEntity = $form->get('game')->getData();
-
-            //Getting player(s)'s score and victories before the contest
-            $initialPlayerScore = $playerEntity->getScore();
-            $initialPlayerVictories = $playerEntity->getVictories();
-
-            //Getting player's team score and victories before the contest
-            $selectedTeam = $playerEntity->getTeam();
-            $initalTeamScore = $selectedTeam->getScore();
-            $initialTeamVictories = $selectedTeam->getVictories();
-
-            //Getting the points value of the game played
-            $selectedScore = $gameEntity->getVictoryValue();
-
-
-            //Update player's score
-            $updatedPlayerScore = $initialPlayerScore+$selectedScore;
-            $playerEntity->setScore($updatedPlayerScore);
-
-            //Update player's victories    
-            $updatedPlayerVictories =  $initialPlayerVictories+1;
-            $playerEntity->setVictories($updatedPlayerVictories);
-            
-            //Update player's team's score
-            $updatedTeamScore = $initalTeamScore+$selectedScore;
-            $selectedTeam->setScore($updatedTeamScore);
-
-            //Update player's team's victories    
-            $updatedTeamVictories =  $initialTeamVictories+1;  
-            $selectedTeam->setVictories($updatedTeamVictories);
-
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($contest);
             $entityManager->flush();
@@ -126,41 +94,12 @@ class ContestController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$contest->getId(), $request->request->get('_token'))) {
 
-            $playerEntity = $contest->getPlayer();
-            $loserEntity = $contest->getLoser();
-            $gameEntity = $contest->getGame();
-
-            //Getting player(s)'s score and victories before the contest
-            $initialPlayerScore = $playerEntity->getScore();
-            $initialPlayerVictories = $playerEntity->getVictories();
-
-            //Getting loser(s)'s score and victories before the contest
-            
-            $initialLoserContestsPlayed = $loserEntity-> getContestPlayed();
-            $initialLoserContestsLose   = $loserEntity->getLose();
-
-           
-            //Getting the points value of the game played
-            $selectedScore = $gameEntity->getVictoryValue();
-
-
-            //Update player's score
-            $updatedPlayerScore = $initialPlayerScore - $selectedScore;
-            $playerEntity->setScore($updatedPlayerScore);
-
-            //Update player's victories    
-            $updatedPlayerVictories =  $initialPlayerVictories - 1;
-            $playerEntity->setVictories($updatedPlayerVictories);
-
-            
-            
+         
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($contest);
             $entityManager->flush();
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($contest);
-            $entityManager->flush();
+           
         }
 
         return $this->redirectToRoute('tournament_index');

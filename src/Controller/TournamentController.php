@@ -230,38 +230,11 @@ class TournamentController extends AbstractController
 
             if ($contestForm->isSubmitted() && $contestForm->isValid()) {
 
-                
-
                 $contest->setTournament($tournament);
-                
-
-                
+        
                 $playerEntity = $contestForm->get('player')->getData();
                 $loserEntity = $contestForm->get('loser')->getData();
                 $gameEntity = $contestForm->get('game')->getData();
-
-                
-
-                //Getting player(s)'s score, victories and contests played before the contest
-                $initialPlayerScore = $playerEntity->getScore();
-                $initialPlayerVictories = $playerEntity->getVictories();
-                
-
-
-        
-
-                //Getting the points value of the game played
-                $selectedScore = $gameEntity->getVictoryValue();
-
-                //Update player's score
-                $updatedPlayerScore = $initialPlayerScore + $selectedScore;
-                $playerEntity->setScore($updatedPlayerScore);
-
-                //Update player's victories    
-                $updatedPlayerVictories =  $initialPlayerVictories + 1;
-                $playerEntity->setVictories($updatedPlayerVictories);
-
-               
 
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($contest);

@@ -23,16 +23,7 @@ class Player
      */
     private $pseudo;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $victories;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $score;
-
+  
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -62,8 +53,6 @@ class Player
     public function __construct()
     {
         $this->contests = new ArrayCollection();
-        $this->setVictories(0);
-        $this->setScore(0);
         $this->contestslose = new ArrayCollection();
     }
 
@@ -84,10 +73,22 @@ class Player
         return $this;
     }
 
-    public function getVictories(): ?int
-    {
-        return $this->victories;
+    // public function getVictories(): ?int
+    // {
+    //     return $this->victories;
+    // }
+
+    public function getVictories() {
+
+        $playerVictories = 0;
+
+        foreach ($this->getContests() as $c) {
+            $playerVictories += 1;
+        }
+
+        return $playerVictories;
     }
+
 
     public function setVictories(int $victories): self
     {
@@ -96,17 +97,21 @@ class Player
         return $this;
     }
 
-    public function getScore(): ?int
-    {
-        return $this->score;
+   
+
+    public function getScore() {
+
+        $playerScore = 0;
+
+        foreach ($this->getContests() as $c) {
+            
+            $playerScore += $c->getGame()->getVictoryValue();
+        }
+
+        return $playerScore;
     }
 
-    public function setScore(int $score): self
-    {
-        $this->score = $score;
-
-        return $this;
-    }
+   
 
     public function getProfilPic(): ?string
     {
