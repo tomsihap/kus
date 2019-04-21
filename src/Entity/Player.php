@@ -235,9 +235,19 @@ class Player
 
     public function getPercentVictories()
     {
-        $playerPercentVictories = $this->getVictories() * 100 / $this->getContestPlayed();
 
-        return round($playerPercentVictories, 2);
+        if ($this->getContestPlayed() > 0) {
+
+            $playerPercentVictories = $this->getVictories() * 100 / $this->getContestPlayed();
+
+            return round($playerPercentVictories, 2) . "%";
+        }
+
+        else {
+            return "/";
+        }
+
+       
     }
 
     
