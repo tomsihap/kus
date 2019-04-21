@@ -2,46 +2,105 @@
 {% block title %}Tournament index{% endblock %}
 {% block body %}
 {% if is_granted('ROLE_USER') %}
-<div class="container">
-<div id="tournament-head-board">
-<h1 id="tournament-board-title">Your tournaments</h1>
 
+{# TOURNAMENT MODAL FORM #}
+
+<div class="bg-modal tournament-modal">
+    <div class="modal-content">
+        <div class="close-tournament">
+            +
+        </div>
+        <h3 class="add-title">Name : </h3>
+        {{ form_start(form) }}
+        <div class="add-input">{{ form_label(form.name, 'Name') }}</div>
+        {{ form_widget(form.name, {'attr': {'class': 'form-control add-input' }}) }}
+        {{ form_row(form.name) }}
+
+
+        <div class="add-input sub-btn">
+            <button type="submit" class="btn btn-success btn-add">Create</button>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
 </div>
-<div id="tournament-head"><a class="btn btn-success create-btn " href="{{ path('tournament_new') }}">+ Create new</a>
-</div>
-{% for tournament in tournaments %}
-<div id="tournament-board">
-            
-    <table class="table">
-        <h3 id="tournament-name">{{ tournament.name }}</h3>
-        <thead>
-            <tr>
-                <th>Teams</th>
-                <th>Players</th>
-                <th>Contests</th>
-                <th>Games</th>
-                <th>Options</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="tournament-index">{{ tournament.teams | length }}</td>
-                <td class="tournament-index">{{ tournament.players | length }}</td>
-                <td class="tournament-index">{{ tournament.contests | length }}</td>
-                <td class="tournament-index">{{ tournament.games | length }}</td>
-                <td>
-                    <a class="btn btn-success " href="{{ path('tournament_show', {'id': tournament.id}) }}">Getin</a>
-                    <a class="btn btn-danger " href="{{ path('tournament_delete', {'id': tournament.id}) }}">Delete</a>
-                </td>
-            </tr>
-            {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        </tbody>
-    </table>
-    {% endfor %}
+
+{# CONTENT #}
+
+<div class="container-fluid">
+<div class="container">
+    <div id="tournament-head-board">
+        <h1 id="tournament-board-title">Your tournaments</h1>
+
+    </div>
+    <div id="tournament-head"><a id="tournament-btn" class="btn btn-success create-btn">+
+            Create new</a>
+    </div>
+    {% for tournament in tournaments %}
+    <div id="tournament-board">
+
+        <table class="table">
+            <h3 id="tournament-name"> <a href="{{ path('tournament_show',   {'id': tournament.id}) }}">{{ tournament.name }}</a>
+            </h3>
+            <thead>
+                <tr>
+                    <th>Teams</th>
+                    <th>Players</th>
+                    <th>Contests</th>
+                    <th>Games</th>
+                    <th>Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="tournament-index">{{ tournament.teams | length }}</td>
+                    <td class="tournament-index">{{ tournament.players | length }}</td>
+                    <td class="tournament-index">{{ tournament.contests | length }}</td>
+                    <td class="tournament-index">{{ tournament.games | length }}</td>
+                    <td>
+                        <a class="btn btn-success "
+                            href="{{ path('tournament_show', {'id': tournament.id}) }}">Getin</a>
+                        <a class="btn btn-danger "
+                            href="{{ path('tournament_delete', {'id': tournament.id}) }}">Delete</a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="3">
+                        <h2 id="p-intro" class"no-records">No tournament, create one !</h2>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        {% endfor %}
     </div>
     {% endif %}
+
+
+
+
+
+
 </div>
+
+
+
+
+
+
+<script>
+    //tournament-modal
+
+    document.getElementById('tournament-btn').addEventListener('click',
+        function () {
+            document.querySelector('.tournament-modal').style.display = 'flex';
+        });
+
+    document.querySelector('.close-tournament').addEventListener('click',
+        function () {
+            document.querySelector('.tournament-modal').style.display = "none";
+        });
+</script>
+
+
 {% endblock %}

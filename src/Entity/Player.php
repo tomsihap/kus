@@ -55,22 +55,16 @@ class Player
     private $tournament;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\OneToMany(targetEntity="App\Entity\Contest", mappedBy="loser", orphanRemoval=true)
      */
-    private $contestPlayed;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $lose;
+    private $contestslose;
 
     public function __construct()
     {
         $this->contests = new ArrayCollection();
         $this->setVictories(0);
         $this->setScore(0);
-        $this->setContestPlayed(0);
-        $this->setLose(0);
+        $this->contestslose = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -151,6 +145,7 @@ class Player
         if (!$this->contests->contains($contest)) {
             $this->contests[] = $contest;
             $contest->setPlayer($this);
+            
         }
 
         return $this;
@@ -181,27 +176,69 @@ class Player
         return $this;
     }
 
-    public function getContestPlayed(): ?int
+  
+    public function getContestPlayed()
     {
-        return $this->contestPlayed;
+        $won = 0;
+
+        foreach ($this->getContests() as $c) {
+           $won += 1;
+        }
+
+        $played = $won + $this->getLose();
+        return $played;
+
     }
 
-    public function setContestPlayed(int $contestPlayed): self
+
+    public function getLose() 
     {
-        $this->contestPlayed = $contestPlayed;
+        $loses = 0;
+        foreach ($this->getContestslose() as $c) {
+
+            $loses += 1;
+        }
+
+        return $loses;
+    }
+
+    /**
+     * @return Collection|Contest[]
+     */
+    public function getContestslose(): Collection
+    {
+        return $this->contestslose;
+    }
+
+    public function addContestslose(Contest $contestslose): self
+    {
+        if (!$this->contestslose->contains($contestslose)) {
+            $this->contestslose[] = $contestslose;
+            $contestslose->setLoser($this);
+        }
 
         return $this;
     }
 
-    public function getLose(): ?int
+    public function removeContestslose(Contest $contestslose): self
     {
-        return $this->lose;
-    }
-
-    public function setLose(int $lose): self
-    {
-        $this->lose = $lose;
+        if ($this->contestslose->contains($contestslose)) {
+            $this->contestslose->removeElement($contestslose);
+            // set the owning side to null (unless already changed)
+            if ($contestslose->getLoser() === $this) {
+                $contestslose->setLoser(null);
+            }
+        }
 
         return $this;
     }
+
+    public function getPercentVictories()
+    {
+        $playerPercentVictories = $this->getVictories() * 100 / $this->getContestPlayed();
+
+        return round($playerPercentVictories, 2);
+    }
+
+    
 }

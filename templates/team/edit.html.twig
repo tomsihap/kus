@@ -3,11 +3,51 @@
 {% block title %}Edit Team{% endblock %}
 
 {% block body %}
-    <h1>Edit Team</h1>
 
-    {{ include('team/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('team_index') }}">back to list</a>
+{# {{ include('team/_form.html.twig', {'button_label': 'Update'}) }} #}
 
-    {{ include('team/_delete_form.html.twig') }}
+<div class="close-team">
+    +
+</div>
+<h3 class="add-title">Edit team : </h3>
+{{ form_start(form) }}
+<div class="add-input">{{ form_label(form.name, 'Name') }}</div>
+{{ form_widget(form.name, {'attr': {'class': 'form-control add-input' }}) }}
+{{ form_row(form.name) }}
+
+
+
+<div class="add-input">{{ form_label(form.photo, 'Team Pic') }}</div>
+<div class="add-input">
+    <button type="button" id="add-team-edit-file" class="btn btn-success btn-pic">Chose a pic</button>
+    <span id="custom-team-edit-text">No file chosen, yet</span>
+</div>
+
+
+<div class="hide-btn">
+    {{ form_label(form.photo, 'chose photo') }}
+    {{ form_widget(form.photo, {'attr': {'class': 'form-control'} }) }}
+    {{ form_row(form.photo) }}
+</div>
+<div class="add-input sub-btn">
+    <button type="submit" class="btn btn-success btn-add">Edit</button>
+</div>
+
+{{ form_end(form) }}
+
+
+<script>
+    document.getElementById('add-team-edit-file').addEventListener('click', function () {
+        document.getElementById('team_photo').click();
+    });
+    document.getElementById('team_hotoc').addEventListener("change", function () {
+        if (document.getElementById('team_photo').value) {
+            document.getElementById('custom-team-edit-text').innerHTML = document.getElementById(
+                'team_photo').value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
+        } else {
+            document.getElementById('custom-team-edit-text').innerHTML = "No file chosen, yet";
+        }
+    });
+</script>
 {% endblock %}

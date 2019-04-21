@@ -3,11 +3,50 @@
 {% block title %}Edit Player{% endblock %}
 
 {% block body %}
-    <h1>Edit Player</h1>
+    
 
-    {{ include('player/_form.html.twig', {'button_label': 'Update'}) }}
+    {# {{ include('player/_form.html.twig', {'button_label': 'Update'}) }} #}
 
-    <a href="{{ path('player_index') }}">back to list</a>
+         <h3 class="add-title">Edit player : </h3>
+         {{ form_start(form) }}
+         <div class="add-input">{{ form_label(form.pseudo, 'Pseudo') }}</div>
+         {{ form_widget(form.pseudo, {'attr': {'class': 'form-control add-input' }}) }}
+         {{ form_row(form.pseudo) }}
 
-    {{ include('player/_delete_form.html.twig') }}
+         <div class="add-input">{{ form_label(form.team, 'Team') }}</div>
+         {{ form_widget(form.team, {'attr': {'class': 'form-control add-input' }}) }}
+         {{ form_row(form.team) }}
+
+         <div class="add-input">{{ form_label(form.profilPic, 'Player Pic') }}</div>
+         <div class="add-input">
+             <button type="button" id="add-player-edit-file" class="btn btn-success btn-pic">Chose a pic</button>
+             <span id="custom-player-edit-text">No file chosen, yet</span>
+         </div>
+
+
+         <div class="hide-btn">
+             {{ form_label(form.profilPic, 'chose photo') }}
+             {{ form_widget(form.profilPic, {'attr': {'class': 'form-control ppp', 'id': 'ppp'} }) }}
+             {{ form_row(form.profilPic) }}
+         </div>
+         <div class="add-input sub-btn">
+             <button type="submit" class="btn btn-success btn-add">Edit</button>
+         </div>
+
+         {{ form_end(form) }}
+     
+
+         <script>
+             document.getElementById('add-player-edit-file').addEventListener('click', function () {
+                 document.getElementById('player_profilPic').click();
+             });
+             document.getElementById('player_profilPic').addEventListener("change", function () {
+                 if (document.getElementById('player_profilPic').value) {
+                     document.getElementById('custom-player-edit-text').innerHTML = document.getElementById(
+                         'player_profilPic').value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
+                 } else {
+                     document.getElementById('custom-player-edit-text').innerHTML = "No file chosen, yet";
+                 }
+             });
+</script>
 {% endblock %}

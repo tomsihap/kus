@@ -135,5 +135,31 @@ class Team
         }
         return $tVictories;
     }
+
+    public function getLose(): ?int
+    {
+        $tLoses = 0;
+        foreach ($this->getPlayers() as $p) {
+            $tLoses += $p->getLose();
+        }
+        return $tLoses;
+    }
+
+    public function getPlayed(): ?int
+    {
+        $tPlayed = 0;
+        foreach ($this->getPlayers() as $p) {
+            $tPlayed += $p->getContestPlayed();
+        }
+        return $tPlayed;
+    }
+
+    public function getPercentVictories()
+    {
+        $teamPercentVictories = $this->getVictories() * 100 / $this->getPlayed();
+
+        return round($teamPercentVictories, 2);
+    }
+   
    
 }

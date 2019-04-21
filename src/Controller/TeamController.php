@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/team")
@@ -18,6 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class TeamController extends AbstractController
 {
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/", name="team_index", methods={"GET"})
      */
     public function index(TeamRepository $teamRepository): Response
@@ -28,6 +30,7 @@ class TeamController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/new", name="team_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
@@ -51,6 +54,7 @@ class TeamController extends AbstractController
     }
 
     /**
+     * 
      * @Route("/{id}", name="team_show", methods={"GET"})
      */
     public function show(Team $team): Response
@@ -70,6 +74,30 @@ class TeamController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            /**********************************************************************/
+
+            //retrive the file send in the request
+            $file = $request->files->get('team')['photo'];
+
+            //put the path to the folder that will stock our files in a var
+            $uploads_team_directory = $this->getParameter('uploads_team_directory');
+
+            //create a var to change the name of the file
+            $filename = 'team' . md5(uniqid()) . '.' . $file->guessExtension();
+
+            //move the file into the folder
+            $file->move(
+                $uploads_team_directory,
+                $filename
+            );
+
+            //set the event photo's attribut
+            $team->setPhoto($filename);
+
+            /**********************************************************************/    
+
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('team_index', [

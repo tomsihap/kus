@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/contest")
@@ -18,6 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ContestController extends AbstractController
 {
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/", name="contest_index", methods={"GET"})
      */
     public function index(ContestRepository $contestRepository): Response
@@ -28,6 +30,7 @@ class ContestController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/new", name="contest_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
@@ -105,7 +108,7 @@ class ContestController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('contest_index', [
+            return $this->redirectToRoute('tournament_index', [
                 'id' => $contest->getId(),
             ]);
         }
@@ -124,17 +127,19 @@ class ContestController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$contest->getId(), $request->request->get('_token'))) {
 
             $playerEntity = $contest->getPlayer();
+            $loserEntity = $contest->getLoser();
             $gameEntity = $contest->getGame();
 
             //Getting player(s)'s score and victories before the contest
             $initialPlayerScore = $playerEntity->getScore();
             $initialPlayerVictories = $playerEntity->getVictories();
 
-            //Getting player's team score and victories before the contest
-            $selectedTeam = $playerEntity->getTeam();
-            $initalTeamScore = $selectedTeam->getScore();
-            $initialTeamVictories = $selectedTeam->getVictories();
+            //Getting loser(s)'s score and victories before the contest
+            
+            $initialLoserContestsPlayed = $loserEntity-> getContestPlayed();
+            $initialLoserContestsLose   = $loserEntity->getLose();
 
+           
             //Getting the points value of the game played
             $selectedScore = $gameEntity->getVictoryValue();
 
@@ -147,14 +152,8 @@ class ContestController extends AbstractController
             $updatedPlayerVictories =  $initialPlayerVictories - 1;
             $playerEntity->setVictories($updatedPlayerVictories);
 
-            //Update player's team's score
-            $updatedTeamScore = $initalTeamScore - $selectedScore;
-            $selectedTeam->setScore($updatedTeamScore);
-
-            //Update player's team's victories    
-            $updatedTeamVictories =  $initialTeamVictories - 1;
-            $selectedTeam->setVictories($updatedTeamVictories);
-
+            
+            
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($contest);
             $entityManager->flush();
@@ -164,6 +163,6 @@ class ContestController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('contest_index');
+        return $this->redirectToRoute('tournament_index');
     }
 }

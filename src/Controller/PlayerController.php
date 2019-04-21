@@ -92,10 +92,31 @@ class PlayerController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            /**********************************************************************/
+
+            //retrive the file send in the request
+            $file = $request->files->get('player')['profilPic'];
+
+            //put the path to the folder that will stock our files in a var
+            $uploads_player_directory = $this->getParameter('uploads_player_directory');
+
+            //create a var to change the name of the file
+            $filename = 'player' . md5(uniqid()) . '.' . $file->guessExtension();
+
+            //move the file into the folder
+            $file->move(
+                $uploads_player_directory,
+                $filename
+            );
+
+            //set the event photo's attribut
+            $player->setProfilPic($filename);
+
+            /**********************************************************************/ 
             
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('player_index', [
+            return $this->redirectToRoute('player_show', [
                 'id' => $player->getId(),
             ]);
         }

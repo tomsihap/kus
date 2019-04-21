@@ -40,9 +40,12 @@ class Contest
     private $tournament;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Player", inversedBy="contests")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Player", inversedBy="contestslose")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $loser;
+
+   
 
     public function __construct()
     {
@@ -114,4 +117,6 @@ class Contest
 
         return $this;
     }
+
+  
 }

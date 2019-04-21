@@ -28,17 +28,35 @@ class TournamentController extends AbstractController
 {
     /**
      * @IsGranted("ROLE_USER")
-     * @Route("/", name="tournament_index", methods={"GET"})
+     * @Route("/", name="tournament_index", methods={"GET", "POST"})
      */
-    public function index(TournamentRepository $tournamentRepository): Response
+    public function index(TournamentRepository $tournamentRepository, Request $request): Response
     {
 
         $usr = $this->getUser();
         $isUser = isset($usr);
+        $tournament = new Tournament();
+        $form = $this->createForm(TournamentType::class, $tournament);
+
+        //retieve the id of the current user
+        $actualUser = $this->getUser();
+        //set the organizer with the current user
+        $tournament->setOrganizer($actualUser);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($tournament);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('tournament_index');
+        }
         
     
         return $this->render('tournament/index.html.twig', [
             'tournaments' => $usr->getTournament(),
+            'form' => $form->createView(),
         ]);
     }
 
@@ -227,16 +245,10 @@ class TournamentController extends AbstractController
                 //Getting player(s)'s score, victories and contests played before the contest
                 $initialPlayerScore = $playerEntity->getScore();
                 $initialPlayerVictories = $playerEntity->getVictories();
-                $initialPlayerContestPlayed = $playerEntity->getContestPlayed();
+                
 
-                //Getting loser(s)'s contests played before the contest
-                $initialLoserContestPlayed = $loserEntity->getContestPlayed();
-                $initialLoserContestLose = $loserEntity->getLose();
 
-                //Getting player's team score and victories before the contest
-                $selectedTeam = $playerEntity->getTeam();
-                $initalTeamScore = $selectedTeam->getScore();
-                $initialTeamVictories = $selectedTeam->getVictories();
+        
 
                 //Getting the points value of the game played
                 $selectedScore = $gameEntity->getVictoryValue();
@@ -249,26 +261,7 @@ class TournamentController extends AbstractController
                 $updatedPlayerVictories =  $initialPlayerVictories + 1;
                 $playerEntity->setVictories($updatedPlayerVictories);
 
-                //Updtae player's contests played
-                $updatedPlayerContestPlayed = $initialPlayerContestPlayed + 1;
-                $playerEntity->setContestPlayed($updatedPlayerContestPlayed);
-
-                //Updtae loser's contests played
-                $updatedLoserContestPlayed = $initialLoserContestPlayed + 1;
-                $loserEntity->setContestPlayed( $updatedLoserContestPlayed);
-
-                //Updtae loser's contests lose
-                $updatedLoserContestLose = $initialLoserContestLose + 1;
-                $loserEntity->setLose($updatedLoserContestLose);
-
-                // //Update player's team's score
-                // $updatedTeamScore = $initalTeamScore + $selectedScore;
-                // $selectedTeam->setScore($updatedTeamScore);
-
-                // //Update player's team's victories    
-                // $updatedTeamVictories =  $initialTeamVictories + 1;
-                // $selectedTeam->setVictories($updatedTeamVictories);
-                // TeamController::count($selectedTeam);
+               
 
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($contest);

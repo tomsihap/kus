@@ -1,3 +1,6 @@
+
+
+
 // team modal
 
 document.getElementById('team-btn').addEventListener('click',
@@ -22,8 +25,6 @@ document.querySelector('.close-player').addEventListener('click',
     function () {
         document.querySelector('.player-modal').style.display = "none";
     });    
-
-
 
 // game modal
 document.getElementById('game-btn').addEventListener('click',
@@ -82,6 +83,7 @@ document.getElementById('player_profilPic').addEventListener("change",
 
 
 
+
 document.getElementById('add-game-file').addEventListener('click',
     function () {
         document.getElementById('game_photo').click();
@@ -94,10 +96,18 @@ document.getElementById('game_photo').addEventListener("change",
         } else {
             document.getElementById('custom-game-text').innerHTML = "No file chosen, yet";
         }
-    });       
+    });    
+    
+
 
 
 
  $(document).ready(function () {
-     $(".table").tablesorter();    
- })   
+     $(".table").tablesorter();
+ })
+
+
+
+
+
+

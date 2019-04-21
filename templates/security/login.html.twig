@@ -5,14 +5,12 @@
 {% block body %}
 <div class="container">
    
-
-
+  
 
     <form method="post">
         {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
-
          
         
             <div class="form-input">
@@ -35,6 +33,17 @@
         <button class="form-log-btn btn" type="submit">
             Sign in
         </button></div>
+
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" name="_remember_me"> Remember me
+            </label>
+        </div>
+
+        <div>
+             <p id="register-link"><a href="{{ path('app_forgotten_password') }}">Forgotten password</a></p>
+        </div>
+       
 
         <p id="register-link"><a href="{{ path('app_register') }}">Don't have an account ? Register here !</a></p>
         

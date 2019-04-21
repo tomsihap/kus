@@ -3,28 +3,56 @@
 {% block title %}Game{% endblock %}
 
 {% block body %}
-    <h1>Game</h1>
 
-    <table class="table">
-        <tbody>
+<div class="container">
+    <div class="head-profil">
+        <img class="pic-profil" src="{{ asset('dist/images/game/' ~ game.getPhoto()) }}">
+        <div class="head-info">
+            <p class="infos info-player">{{ game.name}}</p>
+            <div id="game-edit-btn" class="btn btn-success create-btn"><a class="link-button"
+                    href="{{ path('game_edit',       {'id': game.id}) }}">edit game</a></div>
+        </div>
+    </div>
+</div>
+
+<hr><br>
+<div class="container">
+
+    <div>
+        <p>{{ game.victoryValue}} pts | Joué {{ game.getPlayed()}} fois</p>
+    </div><br>
+
+
+    <h3 class="info info-team">Rules</h3>
+
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut dolor laboriosam officiis assumenda quod, vitae voluptatibus. Pariatur exercitationem et fugiat est doloremque, repudiandae, ea ut velit, doloribus officiis laborum.
+    Error animi recusandae itaque praesentium ducimus deleniti, maxime iusto maiores voluptatum earum suscipit quas a iste cupiditate reiciendis consequuntur mollitia magnam natus fuga eligendi minima. Perferendis deleniti iste possimus pariatur.
+    Voluptate odio repellat quisquam nesciunt, quos, possimus recusandae modi sunt delectus accusantium perferendis expedita. Expedita dolor aut, accusantium suscipit, delectus vero neque fugiat aliquid quas dicta, officia in maxime distinctio.
+    Molestiae laboriosam ducimus ratione similique placeat vero, facilis voluptas quisquam voluptatum quibusdam minus sequi dolorum delectus vitae qui laudantium modi assumenda repudiandae nulla consequatur eaque blanditiis totam reiciendis ipsa! At!</p>
+    <br>
+    <div class="container">
+
+
+        <h3 class="resume-title">Contests :</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Winner</th>
+                    <th>Loser</th>
+                </tr>
+            </thead>
+            {% for contest in game.contests %}
             <tr>
-                <th>Id</th>
-                <td>{{ game.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ game.name }}</td>
-            </tr>
-            <tr>
-                <th>VictoryValue</th>
-                <td>{{ game.victoryValue }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('game_index') }}">back to list</a>
-
-    <a href="{{ path('game_edit', {'id': game.id}) }}">edit</a>
-
+                <td class="tournament-show">{{ contest.createdAt | date('d.m.Y | H:i') }}</td>
+                <td class="tournament-show"><a
+                        href="{{ path('player_show',   {'id': contest.player.id}) }}">{{ contest.player.pseudo}}</a></td>
+                <td class="tournament-show"><a
+                        href="{{ path('player_show',   {'id': contest.loser.id}) }}">{{ contest.loser.pseudo }}</a></td>
+            </tr><br>    
+                {% endfor %}
+            </table>    
+    </div><br>
     {{ include('game/_delete_form.html.twig') }}
+
 {% endblock %}

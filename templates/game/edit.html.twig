@@ -3,11 +3,37 @@
 {% block title %}Edit Game{% endblock %}
 
 {% block body %}
-    <h1>Edit Game</h1>
+    
 
-    {{ include('game/_form.html.twig', {'button_label': 'Update'}) }}
+     <h3 class="add-title">Add a game : </h3>
+     {{ form_start(form) }}
 
-    <a href="{{ path('game_index') }}">back to list</a>
+     <div class="add-input">{{ form_label(form.name, 'Name') }}</div>
+     {{ form_widget(form.name, {'attr': {'class': 'form-control add-input' }}) }}
+     {{ form_row(form.name) }}
 
-    {{ include('game/_delete_form.html.twig') }}
+     <div class="add-input">{{ form_label(form.victoryValue, 'Victory value') }}</div>
+     {{ form_widget(form.victoryValue, {'attr': {'class': 'form-control add-input' }}) }}
+     {{ form_row(form.victoryValue) }}
+
+     <div class="add-input">{{ form_label(form.photo, 'Game Pic') }}</div>
+     <div class="add-input">
+         <button type="button" id="add-game-file" class="btn btn-success btn-pic">Chose a pic</button>
+         <span id="custom-game-text">No file chosen, yet</span>
+     </div>
+
+
+     <div class="hide-btn">
+         {{ form_label(form.photo, 'chose photo') }}
+         {{ form_widget(form.photo, {'attr': {'class': 'form-control' }}) }}
+         {{ form_row(form.photo) }}
+     </div>
+
+     <div class="add-input sub-btn">
+         <button type="submit" class="btn btn-success btn-add">Edit</button>
+         {{ include('game/_delete_form.html.twig') }}
+     </div>
+     {{ form_end(form) }}
+
+    
 {% endblock %}

@@ -3,32 +3,78 @@
 {% block title %}Team{% endblock %}
 
 {% block body %}
-    <h1>Team</h1>
 
+<div class="container">
+    <div class="head-profil">
+        <img class="pic-profil" src="{{ asset('dist/images/team/' ~ team.getPhoto()) }}">
+        <div class="head-info">
+            <p class="infos info-player">{{ team.name}}</p>
+            <div id="team-edit-btn" class="btn btn-success create-btn"><a class="link-button"
+                    href="{{ path('team_edit',       {'id': team.id}) }}">edit team</a></div>
+        </div>
+    </div>
+</div>
+
+<hr><br>
+<div class="container">
+
+    <h3 class="resume-title">Resume: </h3>
     <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ team.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ team.name }}</td>
-            </tr>
-            <tr>
-                <th>Victories</th>
-                <td>{{ team.victories }}</td>
-            </tr>
+        <thead>
             <tr>
                 <th>Score</th>
-                <td>{{ team.score }}</td>
+                <th>Victories</th>
+                <th>Loses</th>
+                <th>Played</th>
+                <th>Percent Victories</th>
+                <th>Players</th>
+                
             </tr>
-        </tbody>
+        </thead>
+        <tr>
+            <td class="tournament-show">{{ team.getScore() }}</td>
+            <td class="tournament-show">{{ team.getVictories() }}</td>
+            <td class="tournament-show">{{ team.getLose() }}</td>
+            <td class="tournament-show">{{ team.getPlayed() }}</td>
+            <td class="tournament-show">{{team.getPercentVictories()}}%</td>
+            <td class="tournament-show">{% for player in team.players %}
+                <a href="{{ path('player_show',   {'id': player.id}) }}">{{ player.pseudo }}</a>
+                {% endfor %}</td>
+            
     </table>
 
-    <a href="{{ path('team_index') }}">back to list</a>
 
-    <a href="{{ path('team_edit', {'id': team.id}) }}">edit</a>
 
+    <h3 class="resume-title">Past contests :</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Winner</th>
+                <th>Loser</th>
+                <th>Game</th>
+                <th>Points</th>
+
+            </tr>
+        </thead>
+        {% for player in team.players %}
+        {% for contest in player.contests %}
+        <tr>
+            <td class="tournament-show">{{ contest.createdAt | date('d/m/Y à H:i') }}</td>
+            <td class="tournament-show"><a
+                    href="{{ path('player_show',   {'id': player.id}) }}">{{ contest.player.pseudo}}</a></td>
+            <td class="tournament-show"><a
+                    href="{{ path('player_show',   {'id': contest.loser.id}) }}">{{ contest.loser.pseudo }}</a></td>
+            <td class="tournament-show"><a href="{{ path('game_show',   {'id': contest.game.id}) }}">{{ contest.game.name }}
+            </td>
+            <td class="tournament-show">{{ contest.game.victoryValue }}</td>
+        </tr>    
+            {% endfor %}
+            {% endfor %}
+    </table>
     {{ include('team/_delete_form.html.twig') }}
+</div>
+
+
+
 {% endblock %}
