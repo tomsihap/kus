@@ -15,6 +15,7 @@ class GameType extends AbstractType
         $builder
             ->add('name')
             ->add('victoryValue')
+            ->add('rules')
             ->add('photo', FileType::class, [
                 'mapped' => false,
                 'label' => 'Add a picture',

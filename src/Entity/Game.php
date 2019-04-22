@@ -44,9 +44,15 @@ class Game
      */
     private $Photo;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $rules;
+
     public function __construct()
     {
         $this->contests = new ArrayCollection();
+        $this->rules = "No rules enter, yet";
     }
 
     public function getId(): ?int
@@ -142,5 +148,17 @@ class Game
             }
         }
         return $played;
+    }
+
+    public function getRules(): ?string
+    {
+        return $this->rules;
+    }
+
+    public function setRules(?string $rules): self
+    {
+        $this->rules = $rules;
+
+        return $this;
     }
 }

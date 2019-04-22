@@ -16,12 +16,15 @@
      {{ form_widget(form.victoryValue, {'attr': {'class': 'form-control add-input' }}) }}
      {{ form_row(form.victoryValue) }}
 
+     <div class="add-input">{{ form_label(form.rules, 'Rules') }}</div>
+     {{ form_widget(form.rules, {'attr': {'class': 'form-control add-input' }}) }}
+     {{ form_row(form.rules) }}
+
      <div class="add-input">{{ form_label(form.photo, 'Game Pic') }}</div>
      <div class="add-input">
          <button type="button" id="add-game-edit-file" class="btn btn-success btn-pic">Chose a pic</button>
          <span id="custom-game-edit-text">No file chosen, yet</span>
      </div>
-
 
      <div class="hide-btn">
          {{ form_label(form.photo, 'chose photo') }}
