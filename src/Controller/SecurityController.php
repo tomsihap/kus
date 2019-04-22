@@ -39,15 +39,21 @@ class SecurityController extends AbstractController
     ): Response
     {
         if ($request->isMethod('POST')) {
+
             $email = $request->request->get('email');
+
             $entityManager = $this->getDoctrine()->getManager();
+
             $user = $entityManager->getRepository(User::class)->findOneByEmail($email);
+            
             /* @var $user User */
             if ($user === null) {
                 $this->addFlash('danger', 'Email Inconnu');
                 return $this->redirectToRoute('home');
             }
+
             $token = $tokenGenerator->generateToken();
+            
             try {
                 $user->setResetToken($token);
                 $entityManager->flush();
