@@ -41,3 +41,10 @@
 .link-button {
     color: white;
 }
+
+#team-player-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-top: 2em;
+}

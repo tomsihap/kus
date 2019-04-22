@@ -26,9 +26,7 @@
                 <th>Victories</th>
                 <th>Loses</th>
                 <th>Played</th>
-                <th>Percent Victories</th>
-                <th>Players</th>
-                
+                <th>Percent Victories</th>     
             </tr>
         </thead>
         <tr>
@@ -36,11 +34,35 @@
             <td class="tournament-show">{{ team.getVictories() }}</td>
             <td class="tournament-show">{{ team.getLose() }}</td>
             <td class="tournament-show">{{ team.getPlayed() }}</td>
-            <td class="tournament-show">{{team.getPercentVictories()}}</td>
-            <td class="tournament-show">{% for player in team.players %}
-                <a href="{{ path('player_show',   {'id': player.id}) }}">{{ player.pseudo }}</a>
-                {% endfor %}</td>
-            
+            <td class="tournament-show">{{team.getPercentVictories()}}</td>      
+    </table>
+
+    <div id="team-player-head">
+        <h3 class="resume-title">Players: </h3>
+        <a href="#body">
+            <div id="player-btn" class="btn btn-success create-btn">+</div>
+        </a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Players</th>
+                <th>Name <i class="fas fa-caret-down"></i></th>
+                <th>Percent Victories <i class="fas fa-caret-down"></i></th>
+                <th>Victories <i class="fas fa-caret-down"></i></th>
+                <th>Score <i class="fas fa-caret-down"></i></th>
+            </tr>
+        </thead>
+        {% for player in team.players %}
+        <tr>
+            <td><img class="player-pic" src="{{ asset('dist/images/player/' ~ player.getProfilPic()) }}"></td>
+            <td class="tournament-show"><a href="{{ path('player_show',   {'id': player.id}) }}">{{ player.pseudo }}</a>
+            </td>
+            <td class="tournament-show">{{player.getPercentVictories()}}</td>
+            <td class="tournament-show">{{ player.victories }}</td>
+            <td class="tournament-show">{{ player.score }}</td>
+        </tr>
+        {% endfor %}
     </table>
 
 
