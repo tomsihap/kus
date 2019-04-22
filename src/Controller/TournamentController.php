@@ -103,6 +103,8 @@ class TournamentController extends AbstractController
         $usrId = $this->getUser()->getId();
         $organizerId = $tournament->getOrganizer()->getId();
 
+       
+
         if ($usrId == $organizerId){
 
             //Add team's form    
