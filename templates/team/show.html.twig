@@ -9,8 +9,12 @@
         <img class="pic-profil" src="{{ asset('dist/images/team/' ~ team.getPhoto()) }}">
         <div class="head-info">
             <p class="infos info-player">{{ team.name}}</p>
-            <div id="team-edit-btn" class="btn btn-success create-btn"><a class="link-button"
+            <div class="edit-button flex-container">
+            <div id="team-edit-btn" class="edit-team btn btn-success create-btn"><a class="link-button"
                     href="{{ path('team_edit',       {'id': team.id}) }}">edit team</a></div>
+                    {{ include('team/_delete_form.html.twig') }}
+        </div>
+        
         </div>
     </div>
 </div>
@@ -39,9 +43,6 @@
 
     <div id="team-player-head">
         <h3 class="resume-title">Players: </h3>
-        <a href="#body">
-            <div id="player-btn" class="btn btn-success create-btn">+</div>
-        </a>
     </div>
     <table class="table">
         <thead>
@@ -124,8 +125,6 @@
             {% endfor %}
             {% endfor %}
     </table>
-
-    {{ include('team/_delete_form.html.twig') }}
 </div>
 
 

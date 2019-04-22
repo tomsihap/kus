@@ -11,8 +11,11 @@
                 <p class="infos info-player">{{ player.pseudo}}</p>
                 <p class="infos info-team"><a
                         href="{{ path('team_show',   {'id': player.team.id}) }}">{{ player.team.name}}</p>
-                <div id="player-edit-btn" class="btn btn-success create-btn"><a class="link-button"
-                        href="{{ path('player_edit',       {'id': player.id}) }}">edit player</a></div>
+                <div class="edit-button flex-container">
+                    <div id="player-edit-btn" class="edit-team btn btn-success create-btn"><a class="link-button"
+                            href="{{ path('player_edit',       {'id': player.id}) }}">edit player</a></div>
+                    {{ include('player/_delete_form.html.twig') }}
+                </div>
             </div>
         </div>
     </div>
@@ -99,7 +102,6 @@
 
             {% endfor %}
     </table>
-    {{ include('player/_delete_form.html.twig') }}
     </div>
     
 {% endblock %}

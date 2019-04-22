@@ -141,6 +141,11 @@ th {
   border: 0px;
   border-radius: 10px; }
 
+.delete-btn {
+  border: 0px;
+  border-radius: 10%;
+  margin-left: 0.2em; }
+
 .team-pic,
 .game-pic,
 .player-pic {
@@ -275,3 +280,12 @@ th {
   -ms-flex-align: end;
   align-items: flex-end;
   padding-top: 2em; }
+
+.edit-button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row; }
