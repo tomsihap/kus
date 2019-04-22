@@ -24,6 +24,7 @@ class PlayerType extends AbstractType
             ->add('profilPic', FileType::class, [
                 'mapped' => false,
                 'label' => 'Add a picture',
+                'required'   => false,
             ])
         ;
     }

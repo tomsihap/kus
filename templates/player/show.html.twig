@@ -6,7 +6,9 @@
     
     <div class="container">
         <div class="head-profil">
-            <img class="pic-profil" src="{{ asset('dist/images/player/' ~ player.getProfilPic()) }}">
+            <img class="pic-profil"
+                {% if player.getProfilPic() == null %}src="{{ asset('dist/images/player/unknown.png')}}"
+                {% endif %} src="{{ asset('dist/images/player/' ~ player.getProfilPic()) }}">
             <div class="head-info">
                 <p class="infos info-player">{{ player.pseudo}}</p>
                 <p class="infos info-team"><a

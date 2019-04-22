@@ -56,7 +56,9 @@
         {% for team in tournament.teams %}
         {% for player in team.players %}
         <tr>
-            <td><img class="player-pic" src="{{ asset('dist/images/player/' ~ player.getProfilPic()) }}"></td>
+            <td><img class="player-pic"
+                    {% if player.getProfilPic() == null %}src="{{ asset('dist/images/player/unknown.png')}}"{% endif %}
+                    src="{{ asset('dist/images/player/' ~ player.getProfilPic()) }}"></td>
             <td class="tournament-show"><a href="{{ path('player_show',   {'id': player.id}) }}">{{ player.pseudo }}</a>
             </td>
             <td class="tournament-show"><a href="{{ path('team_show',   {'id': team.id}) }}"> {{ player.team.name }}</a></td>

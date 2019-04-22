@@ -152,27 +152,42 @@ class TournamentController extends AbstractController
             $playerForm = $this->createForm(PlayerType::class, $player);
             $playerForm->handleRequest($request);
 
+            // dump($player->getProfilPic()); die;
+
+            // $player->getProfilPic() != null
             if($playerForm->isSubmitted() && $playerForm->isValid()) {
 
                 /**********************************************************************/
 
+                
+
                 //retrive the file send in the request
                 $file = $request->files->get('player')['profilPic'];
 
-                //put the path to the folder that will stock our files in a var
-                $uploads_player_directory = $this->getParameter('uploads_player_directory');
+                if ($file === null) {
+                    $player->setProfilPic(null);
+                } 
 
-                //create a var to change the name of the file
-                $filename = 'player' . md5(uniqid()) . '.' . $file->guessExtension();
+                else {
 
-                //move the file into the folder
-                $file->move(
-                    $uploads_player_directory,
-                    $filename
-                );
+                    //put the path to the folder that will stock our files in a var
+                    $uploads_player_directory = $this->getParameter('uploads_player_directory');
 
-                //set the event photo's attribut
-                $player->setProfilPic($filename);
+                    //create a var to change the name of the file
+                    $filename = 'player' . md5(uniqid()) . '.' . $file->guessExtension();
+
+                    //move the file into the folder
+                    $file->move(
+                        $uploads_player_directory,
+                        $filename
+                    );
+
+                    //set the event photo's attribut
+                    $player->setProfilPic($filename);
+
+                }
+
+                
 
                 /**********************************************************************/ 
 
