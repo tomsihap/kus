@@ -116,32 +116,17 @@ class TeamController extends AbstractController
      */
     public function delete(Request $request, Team $team): Response
     {
+        $tournament = $team->getTournament();
+
         if ($this->isCsrfTokenValid('delete'.$team->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($team);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('team_index');
+        return $this->redirectToRoute('tournament_show', [
+            'id' => $tournament->getId(),
+        ]);
     }
-
-    // /**
-    //  * @Route("/{id}/test", name="team_test", methods={"GET", "POST"})
-    //  */
-    // public function count(Team $team)
-    // {
-        
-    //     $tVictories = 0;
-    //     $tScore = 0;
-    //     foreach ($team->getPlayers() as $p) {
-    //         $tVictories += $p->getVictories();
-    //         $tScore += $p->getScore();
-    //     }
-
-    //     $team->setVictories($tVictories);
-    //     $team->setScore($tScore);
-
-    //     return $team;
-    // }
     
 }

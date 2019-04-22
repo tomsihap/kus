@@ -56,6 +56,7 @@ class ContestController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/{id}", name="contest_show", methods={"GET"})
      */
     public function show(Contest $contest): Response
@@ -66,6 +67,7 @@ class ContestController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/{id}/edit", name="contest_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Contest $contest): Response
@@ -92,16 +94,15 @@ class ContestController extends AbstractController
      */
     public function delete(Request $request, Contest $contest): Response
     {
+        $tournament = $contest->getTournament();
+
         if ($this->isCsrfTokenValid('delete'.$contest->getId(), $request->request->get('_token'))) {
-
-         
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($contest);
+            $entityManager->remove($contest);
             $entityManager->flush();
-
-           
         }
-
-        return $this->redirectToRoute('tournament_index');
+        return $this->redirectToRoute('tournament_show', [
+            'id' => $tournament->getId(),
+        ]);    
     }
 }

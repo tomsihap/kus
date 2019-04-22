@@ -132,12 +132,17 @@ class PlayerController extends AbstractController
      */
     public function delete(Request $request, Player $player): Response
     {
+
+        $tournament = $player->getTournament();
+
         if ($this->isCsrfTokenValid('delete'.$player->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($player);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('tournament_index');
+        return $this->redirectToRoute('tournament_show', [
+            'id' => $tournament->getId(),
+        ]);
     }
 }
