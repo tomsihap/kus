@@ -30,7 +30,7 @@ class ContestController extends AbstractController
     }
 
     /**
-     * @IsGranted("ROLE_ADMIN")
+     * 
      * @Route("/new", name="contest_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
@@ -41,6 +41,8 @@ class ContestController extends AbstractController
  
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($contest);

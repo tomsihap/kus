@@ -166,6 +166,24 @@ class Team
         }
         
     }
+
+    public function allExceptThis(Team $team) {
+        
+        $teams = $team->getTournament()->getTeams();
+        $availablePlayers = [];
+
+        foreach ($teams as $t) {
+            if ($t != $team) {
+
+                foreach ($t->getPlayers() as $p) {
+                    array_push($availablePlayers, $p);
+                }
+            }
+        }
+
+        
+         return $availablePlayers;
+    }
    
    
 }

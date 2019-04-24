@@ -113,6 +113,15 @@ class Contest
 
     public function setLoser(?Player $loser): self
     {
+
+        if ($loser == $this->getPlayer()) {
+            trigger_error("Player can't play against himself", E_USER_ERROR);
+        }
+
+        if ($loser->getTeam() == $this->getPlayer()->getTeam()) {
+            trigger_error("Player can't play against another player from the same team", E_USER_ERROR);
+        }
+        
         $this->loser = $loser;
 
         return $this;
