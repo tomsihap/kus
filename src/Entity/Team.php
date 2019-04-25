@@ -180,9 +180,14 @@ class Team
                 }
             }
         }
-
-        
          return $availablePlayers;
+    }
+
+    public function thisTournamentTeam(Team $team)
+    {
+        $teams = $team->getTournament()->getTeams();
+
+        return $teams;
     }
    
    

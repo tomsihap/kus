@@ -174,7 +174,7 @@
 <!-- __________Player Modal__________ -->
 
 <div class="bg-modal player-modal">
-    <div class="modal-content">
+    <div class="player-modal-content modal-content">
         <div class="close-player">
             +
         </div>
@@ -184,9 +184,14 @@
             {{ form_widget(playerForm.pseudo, {'attr': {'class': 'form-control add-input' }}) }}
             {{ form_row(playerForm.pseudo) }}
 
+            <div class="add-input">{{ form_label(playerForm.tournament, 'Tournament') }}</div>
+            {{ form_widget(playerForm.tournament, {'attr': {'class': 'form-control add-input' }}) }}
+            {{ form_row(playerForm.tournament) }}
+            
             <div class="add-input">{{ form_label(playerForm.team, 'Team') }}</div>
             {{ form_widget(playerForm.team, {'attr': {'class': 'form-control add-input' }}) }}
             {{ form_row(playerForm.team) }}
+            
 
             <div class="add-input">{{ form_label(playerForm.profilPic, 'Player Pic') }}</div>
             <div class="add-input">

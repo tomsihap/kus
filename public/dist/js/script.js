@@ -104,7 +104,9 @@ document.getElementById('game_photo').addEventListener("change",
 
  $(document).ready(function () {
      $(".table").tablesorter();
- })
+ });
+
+ 
 
 
 

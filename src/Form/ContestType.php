@@ -21,11 +21,7 @@ class ContestType extends AbstractType
             ->add('player', EntityType::class, [
                 'class' => Player::class,
                 'choice_label' => 'pseudo',
-                
-                
-            ])
-
-            
+                ])
             ->add('loser', EntityType::class, [
                 'class' => Player::class,
                 'choice_label' => 'pseudo',
@@ -48,26 +44,10 @@ class ContestType extends AbstractType
                         'class' => PLayer::class,
                         'choices' => $loser,
                         'choice_label' => 'pseudo',
-                    ]);
-                    
-
+                    ]);    
                 }
             );
             }    
-
-        // $formModifier = function (FormInterface $form, Player $loser = null) {
-        //     $rival = null === $loser->getTeam() ? [] : $loser->getTeam()->allExceptThis($loser->getTeam());
-
-        //     $form->add('loser', EntityType::class, [
-        //         'class' => 'App\Entity\Player',
-        //         'placeholder' => '',
-        //         'choices' => $rival,
-        //     ]);
-        // };
-
-    //     $builder->add
-    // }
-
 
     public function configureOptions(OptionsResolver $resolver)
     {

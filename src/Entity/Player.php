@@ -73,10 +73,6 @@ class Player
         return $this;
     }
 
-    // public function getVictories(): ?int
-    // {
-    //     return $this->victories;
-    // }
 
     public function getVictories() {
 
@@ -251,9 +247,10 @@ class Player
         else {
             return "/";
         }
-
        
     }
+
+   
 
     
 }

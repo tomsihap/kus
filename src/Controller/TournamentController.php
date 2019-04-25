@@ -152,9 +152,8 @@ class TournamentController extends AbstractController
             $playerForm = $this->createForm(PlayerType::class, $player);
             $playerForm->handleRequest($request);
 
-            // dump($player->getProfilPic()); die;
+            
 
-            // $player->getProfilPic() != null
             if($playerForm->isSubmitted() && $playerForm->isValid()) {
 
                 /**********************************************************************/
@@ -191,7 +190,7 @@ class TournamentController extends AbstractController
 
                 /**********************************************************************/ 
 
-                $player->setTournament($tournament);
+                
 
                 $manager->persist($player);
                 $manager->flush();

@@ -193,6 +193,9 @@ th {
   opacity: 1;
   position: relative; }
 
+.player-modal-content {
+  height: 550px; }
+
 .close-team, .close-player, .close-game, .close-contest, .close-tournament {
   position: absolute;
   top: 0;
